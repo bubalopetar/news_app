@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:news_app/core/error/failures.dart';
 import 'package:news_app/features/articles/domain/entities/article.dart';
 import 'package:news_app/features/articles/domain/repositories/articles_repository.dart';
 import 'package:news_app/features/articles/domain/usecases/get_articles.dart';
@@ -34,6 +35,19 @@ void main() {
 
       final result = await usecase(params: const Params(url: tUrl));
       expect(result, const Right(tArticles));
+      verify(mockArticlesRepository.getArticlesFrom(url: tUrl));
+      verifyNoMoreInteractions(mockArticlesRepository);
+    },
+  );
+
+  test(
+    'should get a Failure if something went wrong',
+    () async {
+      when(mockArticlesRepository.getArticlesFrom(url: tUrl))
+          .thenAnswer((_) async =>  Left(ServerFailure()));
+
+      final result = await usecase(params: const Params(url: tUrl));
+      expect(result, Left(ServerFailure()));
       verify(mockArticlesRepository.getArticlesFrom(url: tUrl));
       verifyNoMoreInteractions(mockArticlesRepository);
     },
