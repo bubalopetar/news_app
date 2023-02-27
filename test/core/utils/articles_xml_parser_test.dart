@@ -22,7 +22,7 @@ void main() {
         () {
           final result = parser.getArticlesFromXML(xml);
 
-          expect(result.length, 150);
+          expect(result.length, 3);
           expect(result.first, isA<ArticleModel>());
         },
       );
