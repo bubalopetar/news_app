@@ -27,29 +27,34 @@ void main() {
     Article(title: 'third article', link: 'link3'),
   ];
 
-  test(
-    'should get a list od articles from provided url',
-    () async {
-      when(mockArticlesRepository.getArticlesFrom(url: tUrl))
-          .thenAnswer((_) async => const Right(tArticles));
+  group(
+    'getArticlesFrom',
+    () {
+      test(
+        'should get a list od articles from provided url',
+        () async {
+          when(mockArticlesRepository.getArticlesFrom(url: tUrl))
+              .thenAnswer((_) async => const Right(tArticles));
 
-      final result = await usecase(params: const Params(url: tUrl));
-      expect(result, const Right(tArticles));
-      verify(mockArticlesRepository.getArticlesFrom(url: tUrl));
-      verifyNoMoreInteractions(mockArticlesRepository);
-    },
-  );
+          final result = await usecase(params: const Params(url: tUrl));
+          expect(result, const Right(tArticles));
+          verify(mockArticlesRepository.getArticlesFrom(url: tUrl));
+          verifyNoMoreInteractions(mockArticlesRepository);
+        },
+      );
 
-  test(
-    'should get a Failure if something went wrong',
-    () async {
-      when(mockArticlesRepository.getArticlesFrom(url: tUrl))
-          .thenAnswer((_) async => Left(ServerFailure()));
+      test(
+        'should get a Failure if something went wrong',
+        () async {
+          when(mockArticlesRepository.getArticlesFrom(url: tUrl))
+              .thenAnswer((_) async => Left(ServerFailure()));
 
-      final result = await usecase(params: const Params(url: tUrl));
-      expect(result, Left(ServerFailure()));
-      verify(mockArticlesRepository.getArticlesFrom(url: tUrl));
-      verifyNoMoreInteractions(mockArticlesRepository);
+          final result = await usecase(params: const Params(url: tUrl));
+          expect(result, Left(ServerFailure()));
+          verify(mockArticlesRepository.getArticlesFrom(url: tUrl));
+          verifyNoMoreInteractions(mockArticlesRepository);
+        },
+      );
     },
   );
 }
