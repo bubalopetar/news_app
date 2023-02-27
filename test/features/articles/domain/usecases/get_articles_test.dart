@@ -6,12 +6,6 @@ import 'package:news_app/features/articles/domain/entities/article.dart';
 import 'package:news_app/features/articles/domain/repositories/articles_repository.dart';
 import 'package:news_app/features/articles/domain/usecases/get_articles.dart';
 
-// class MockArticlesRepository extends Mock implements ArticlesRepository {
-//   @override
-//   Future<Either<Failure, List<Article>>> getArticlesFrom(String? url) =>
-//       super.noSuchMethod(Invocation.method(#getArticlesFrom, [url]));
-// }
-
 @GenerateNiceMocks([MockSpec<ArticlesRepository>()])
 import 'get_articles_test.mocks.dart';
 
@@ -38,7 +32,7 @@ void main() {
       when(mockArticlesRepository.getArticlesFrom(url: tUrl))
           .thenAnswer((_) async => const Right(tArticles));
 
-      final result = await usecase.execute(url: tUrl);
+      final result = await usecase(params: const Params(url: tUrl));
       expect(result, const Right(tArticles));
       verify(mockArticlesRepository.getArticlesFrom(url: tUrl));
       verifyNoMoreInteractions(mockArticlesRepository);
