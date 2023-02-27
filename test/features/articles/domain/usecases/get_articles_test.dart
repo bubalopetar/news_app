@@ -44,7 +44,7 @@ void main() {
     'should get a Failure if something went wrong',
     () async {
       when(mockArticlesRepository.getArticlesFrom(url: tUrl))
-          .thenAnswer((_) async =>     Left(ServerFailure()));
+          .thenAnswer((_) async => Left(ServerFailure()));
 
       final result = await usecase(params: const Params(url: tUrl));
       expect(result, Left(ServerFailure()));
