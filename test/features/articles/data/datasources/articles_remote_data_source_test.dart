@@ -34,15 +34,14 @@ void main() {
   group(
     'getArticlesFrom',
     () {
-      const url = 'https://www.index.hr/rss';
-      final uri = Uri.parse(url);
+      final url = Uri.parse('https://www.index.hr/rss');
 
       test(
         'should perform http request on provided url',
         () async {
           setMockHttpClientSuccess200();
           await dataSource.getArticlesFrom(url: url);
-          verify(httpClient.get(uri));
+          verify(httpClient.get(url));
         },
       );
 
