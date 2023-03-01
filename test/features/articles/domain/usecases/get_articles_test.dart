@@ -5,22 +5,23 @@ import 'package:mockito/mockito.dart';
 import 'package:news_app/core/error/failures.dart';
 import 'package:news_app/features/articles/domain/entities/article.dart';
 import 'package:news_app/features/articles/domain/repositories/articles_repository.dart';
-import 'package:news_app/features/articles/domain/usecases/get_articles.dart';
+import 'package:news_app/features/articles/domain/usecases/get_articles_from_url.dart';
 
 @GenerateNiceMocks([MockSpec<ArticlesRepository>()])
 import 'get_articles_test.mocks.dart';
 
 void main() {
-  late GetArticles usecase;
+  late GetArticlesUseCase usecase;
   late MockArticlesRepository mockArticlesRepository;
 
   setUp(
     () {
       mockArticlesRepository = MockArticlesRepository();
-      usecase = GetArticles(repository: mockArticlesRepository);
+      usecase = GetArticlesUseCase(repository: mockArticlesRepository);
     },
   );
-  const String tUrl = 'test';
+  final Uri url = Uri.parse('testUrl');
+
   const List<Article> tArticles = [
     Article(title: 'first article', link: 'link1'),
     Article(title: 'second article', link: 'link2'),
@@ -33,12 +34,12 @@ void main() {
       test(
         'should get a list od articles from provided url',
         () async {
-          when(mockArticlesRepository.getArticlesFrom(url: tUrl))
+          when(mockArticlesRepository.getArticlesFrom(url: url))
               .thenAnswer((_) async => const Right(tArticles));
 
-          final result = await usecase(params: const Params(url: tUrl));
+          final result = await usecase(params: Params(url: url));
           expect(result, const Right(tArticles));
-          verify(mockArticlesRepository.getArticlesFrom(url: tUrl));
+          verify(mockArticlesRepository.getArticlesFrom(url: url));
           verifyNoMoreInteractions(mockArticlesRepository);
         },
       );
@@ -46,12 +47,12 @@ void main() {
       test(
         'should get a Failure if something went wrong',
         () async {
-          when(mockArticlesRepository.getArticlesFrom(url: tUrl))
+          when(mockArticlesRepository.getArticlesFrom(url: url))
               .thenAnswer((_) async => Left(ServerFailure()));
 
-          final result = await usecase(params: const Params(url: tUrl));
+          final result = await usecase(params: Params(url: url));
           expect(result, Left(ServerFailure()));
-          verify(mockArticlesRepository.getArticlesFrom(url: tUrl));
+          verify(mockArticlesRepository.getArticlesFrom(url: url));
           verifyNoMoreInteractions(mockArticlesRepository);
         },
       );
