@@ -40,7 +40,7 @@ class MockArticlesRepository extends _i1.Mock
     implements _i3.ArticlesRepository {
   @override
   _i4.Future<_i2.Either<_i5.Failure, List<_i6.Article>>> getArticlesFrom(
-          {required String? url}) =>
+          {required Uri? url}) =>
       (super.noSuchMethod(
         Invocation.method(
           #getArticlesFrom,
