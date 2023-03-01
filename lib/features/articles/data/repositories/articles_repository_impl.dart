@@ -11,7 +11,7 @@ class ArticleRepositoryImpl extends ArticlesRepository {
   ArticleRepositoryImpl({required this.remoteDataSource});
   @override
   Future<Either<Failure, List<ArticleModel>>> getArticlesFrom(
-      {required String url}) async {
+      {required Uri url}) async {
     try {
       final response = await remoteDataSource.getArticlesFrom(url: url);
       return Right(response);
