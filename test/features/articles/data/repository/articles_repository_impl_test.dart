@@ -18,7 +18,7 @@ void main() {
       MockArticlesRemoteDataSource();
   ArticleRepositoryImpl repository =
       ArticleRepositoryImpl(remoteDataSource: mockArticlesRemoteDataSource);
-  String url = 'testUrl';
+  Uri url = Uri.parse('testUrl');
   List<ArticleModel> articles =
       ArticlesXMLParserImpl().getArticlesFromXML(fixture('articles.xml'));
 
