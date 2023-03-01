@@ -28,7 +28,7 @@ import 'package:news_app/features/articles/data/models/article_model.dart'
 class MockArticlesRemoteDataSource extends _i1.Mock
     implements _i2.ArticlesRemoteDataSource {
   @override
-  _i3.Future<List<_i4.ArticleModel>> getArticlesFrom({required String? url}) =>
+  _i3.Future<List<_i4.ArticleModel>> getArticlesFrom({required Uri? url}) =>
       (super.noSuchMethod(
         Invocation.method(
           #getArticlesFrom,
