@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 abstract class ArticlesRemoteDataSource {
   // call endpoint for getting rrs feed
   // throws [ServerException] for all error codes
-  Future<List<ArticleModel>> getArticlesFrom({required String url});
+  Future<List<ArticleModel>> getArticlesFrom({required Uri url});
 }
 
 class ArticlesRemoteDataSourceImpl implements ArticlesRemoteDataSource {
@@ -19,8 +19,8 @@ class ArticlesRemoteDataSourceImpl implements ArticlesRemoteDataSource {
   });
 
   @override
-  Future<List<ArticleModel>> getArticlesFrom({required String url}) async {
-    final result = await httpClient.get(Uri.parse(url));
+  Future<List<ArticleModel>> getArticlesFrom({required Uri url}) async {
+    final result = await httpClient.get(url);
 
     if (result.statusCode == 200) {
       String xml = result.body;
