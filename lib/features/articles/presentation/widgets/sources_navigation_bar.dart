@@ -12,13 +12,14 @@ class SourcesNavigationBar extends StatelessWidget {
   List<BottomNavigationBarItem> buildBottomNavigationItems() {
     return sources
         .map<BottomNavigationBarItem>((source) => BottomNavigationBarItem(
-            label: source.name,
-            icon: Image(
-              image: AssetImage("assets/images/${source.name}.png"),
-              height: 25,
-              width: 25,
-            ),
-            backgroundColor: Colors.amber))
+              backgroundColor: Colors.grey.shade500,
+              label: source.name,
+              icon: Image(
+                image: AssetImage("assets/images/${source.name}.png"),
+                height: 24,
+                width: 24,
+              ),
+            ))
         .toList();
   }
 
