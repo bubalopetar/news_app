@@ -52,8 +52,14 @@ class ArticlesXMLParserImpl implements ArticlesXMLParser {
     String? img = _tryToGetLinkFromText(article.getElement('content')?.text);
     if (img != null) return img;
 
-    img = article.getElement('media:thumbnail')!.getAttribute('url');
+    img = article.getElement('media:thumbnail')?.getAttribute('url');
     if (img != null) return img;
+
+    String? descr = article.getElement('description')?.text;
+    if (descr != null) {
+      img = _tryToGetLinkFromText(descr);
+      if (img != null) return img;
+    }
 
     return null;
   }
