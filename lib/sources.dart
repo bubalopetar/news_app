@@ -7,23 +7,23 @@ List<Map<String, dynamic>> sourcesList = [
     'url': 'https://www.index.hr/rss',
     'categories': [
       {
-        'name': 'NAJČITANIJE',
+        'name': 'Najčitanije',
         'url': 'https://www.index.hr/rss/najcitanije',
       },
       {
-        'name': 'VIJESTI',
+        'name': 'Vijesti',
         'url': 'https://www.index.hr/rss/vijesti',
       },
       {
-        'name': 'HRVATSKA',
+        'name': 'Hrvatska',
         'url': 'https://www.index.hr/rss/vijesti-hrvatska',
       },
       {
-        'name': 'ZAGREB',
+        'name': 'Zagreb',
         'url': 'https://www.index.hr/rss/vijesti-zagreb',
       },
       {
-        'name': 'REGIJA',
+        'name': 'Regija',
         'url': 'https://www.index.hr/rss/vijesti-regija',
       },
       {
@@ -31,119 +31,111 @@ List<Map<String, dynamic>> sourcesList = [
         'url': 'https://www.index.hr/rss/vijesti-eu',
       },
       {
-        'name': 'SVIJET',
+        'name': 'Svijet',
         'url': 'https://www.index.hr/rss/vijesti-svijet',
       },
       {
-        'name': 'ZNANOST',
+        'name': 'Znanost',
         'url': 'https://www.index.hr/rss/vijesti-znanost',
       },
       {
-        'name': 'CRNA KRONIKA',
+        'name': 'Crna kronika',
         'url': 'https://www.index.hr/rss/vijesti-crna-kronika',
       },
       {
-        'name': 'KOMENTARI',
-        'url': 'https://www.index.hr/rss/vijesti-komentari',
-      },
-      {
-        'name': 'NOVAC',
+        'name': 'Novac',
         'url': 'https://www.index.hr/rss/vijesti-novac',
       },
       {
-        'name': 'SPORT',
+        'name': 'Sport',
         'url': 'https://www.index.hr/rss/sport',
       },
       {
-        'name': 'NOGOMET',
+        'name': 'Nogomet',
         'url': 'https://www.index.hr/rss/sport-nogomet',
       },
       {
-        'name': 'KOŠARKA',
+        'name': 'Košarka',
         'url': 'https://www.index.hr/rss/sport-kosarka',
       },
       {
-        'name': 'TENIS',
+        'name': 'Tenis',
         'url': 'https://www.index.hr/rss/sport-tenis',
       },
       {
-        'name': 'OSTALI SPORTOVI',
+        'name': 'Ostali sportovi',
         'url': 'https://www.index.hr/rss/sport-ostali-sportovi',
       },
       {
-        'name': 'REGIJA',
+        'name': 'Regija',
         'url': 'https://www.index.hr/rss/sport-regija',
       },
       {
-        'name': 'KOMENTARI',
-        'url': 'https://www.index.hr/rss/sport-komentari',
-      },
-      {
-        'name': 'BORILAČKI SPORTOVI',
+        'name': 'Borilački sportovi',
         'url': 'https://www.index.hr/rss/sport-borilacki-sportovi',
       },
       {
-        'name': 'E-SPORT',
+        'name': 'E-sport',
         'url': 'https://www.index.hr/rss/sport-e-sport',
       },
       {
-        'name': 'MAGAZIN',
+        'name': 'Magazin',
         'url': 'https://www.index.hr/rss/magazin',
       },
       {
-        'name': 'TV & FILM',
+        'name': 'TV & Film',
         'url': 'https://www.index.hr/rss/magazin-tv-film',
       },
       {
-        'name': 'GLAZBA',
+        'name': 'Glazba',
         'url': 'https://www.index.hr/rss/magazin-glazba',
       },
       {
-        'name': 'TECH & GADGET',
+        'name': 'Tech & Gadget',
         'url': 'https://www.index.hr/rss/magazin-tech-gadget',
       },
       {
-        'name': 'LIFESTYLE',
+        'name': 'Lifestyle',
         'url': 'https://www.index.hr/rss/magazin-lifestyle',
       },
       {
-        'name': 'SHOWBIZ',
+        'name': 'Showbiz',
         'url': 'https://www.index.hr/rss/magazin-showbiz',
       },
       {
-        'name': 'ZANIMLJIVOSTI',
+        'name': 'Zanimljivosti',
         'url': 'https://www.index.hr/rss/magazin-zanimljivosti',
       },
       {
-        'name': 'LJUBIMCI',
+        'name': 'Ljubimci',
         'url': 'https://www.index.hr/rss/ljubimci',
       },
       {
-        'name': 'FOOD',
+        'name': 'Hrana',
         'url': 'https://www.index.hr/rss/food',
       },
       {
-        'name': 'MAME',
+        'name': 'Mame',
         'url': 'https://www.index.hr/rss/mame',
       },
       {
-        'name': 'AUTO',
+        'name': 'Auto',
         'url': 'https://www.index.hr/rss/auto',
       },
       {
-        'name': 'FIT',
+        'name': 'Fit',
         'url': 'https://www.index.hr/rss/fit',
       },
       {
-        'name': 'CHILL',
+        'name': 'Chill',
         'url': 'https://www.index.hr/rss/chill',
       },
       {
-        'name': 'SHOPPING',
+        'name': 'Shopping',
         'url': 'https://www.index.hr/rss/shopping',
       },
       {
-        'name': 'HOROSKOP',
+        'name': 'Horoskop',
         'url': 'https://www.index.hr/rss/horoskop',
       }
     ]
@@ -153,30 +145,69 @@ List<Map<String, dynamic>> sourcesList = [
     'url': 'https://net.hr/feed',
     'categories': [
       {
-        'name': 'DANAS',
+        'name': 'Danas',
         'url': 'https://net.hr/feed/danas',
       },
       {
-        'name': 'SPORT',
+        'name': 'Sport',
         'url': 'https://net.hr/feed/sport',
       },
       {
-        'name': 'HOT',
+        'name': 'Hot',
         'url': 'https://net.hr/feed/hot',
       },
       {
-        'name': 'MAGAZIN',
+        'name': 'Magazin',
         'url': 'https://net.hr/feed/magazin',
       },
       {
-        'name': 'WEBCAFE',
+        'name': 'Webcafe',
         'url': 'https://net.hr/feed/webcafe',
       },
       {
-        'name': 'VIDEO',
+        'name': 'Video',
         'url': 'https://net.hr/feed/video',
       },
     ]
+  },
+  {
+    'name': '24sata.hr',
+    'url': 'https://www.24sata.hr/feeds/aktualno.xml',
+    'categories': [
+      {
+        'name': 'Najnovije',
+        'url': 'https://www.24sata.hr/feeds/najnovije.xml',
+      },
+      {
+        'name': 'News',
+        'url': 'https://www.24sata.hr/feeds/news.xml',
+      },
+      {
+        'name': 'Show',
+        'url': 'https://www.24sata.hr/feeds/show.xml',
+      },
+      {
+        'name': 'Sport',
+        'url': 'https://www.24sata.hr/feeds/sport.xml',
+      },
+      {
+        'name': 'Lifestyle',
+        'url': 'https://www.24sata.hr/feeds/lifestyle.xml',
+      },
+      {
+        'name': 'Tech',
+        'url': 'https://www.24sata.hr/feeds/tech.xml',
+      },
+      {
+        'name': 'Viral',
+        'url': 'https://www.24sata.hr/feeds/fun.xml',
+      },
+    ]
+  },
+  {
+    'name': 'Jutarnji.hr',
+    'url': 'https://www.jutarnji.hr/feed',
+    'categories': []
   }
 ];
 
