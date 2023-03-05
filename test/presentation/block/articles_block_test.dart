@@ -12,14 +12,14 @@ import 'package:news_app/features/articles/presentation/bloc/articles_bloc.dart'
 import 'articles_block_test.mocks.dart';
 
 void main() {
-  late MockGetArticles usecase;
+  late GetArticlesUseCase usecase;
   late ArticlesBloc bloc;
-  late MockUrlConverter converter;
+  late UrlConverter converter;
 
   setUp(
     () {
       converter = MockUrlConverter();
-      usecase = MockGetArticles();
+      usecase = MockGetArticlesUseCase();
       bloc = ArticlesBloc(usecase: usecase, urlConverter: converter);
     },
   );
@@ -41,7 +41,7 @@ void main() {
       setUp(
         () {
           converter = MockUrlConverter();
-          usecase = MockGetArticles();
+          usecase = MockGetArticlesUseCase();
           bloc = ArticlesBloc(usecase: usecase, urlConverter: converter);
         },
       );
@@ -56,7 +56,7 @@ void main() {
       }
 
       void addBlockEvent(String url) {
-        bloc.add(GetArticlesFromUrlEvent(url: url));
+        bloc.add(GetArticlesFromUrlEvent(url: url, activeTabIndex: 0));
       }
 
       test(
@@ -75,12 +75,12 @@ void main() {
       );
 
       test('should emit [Error] when the provided link is empty', () async {
-        when(converter.toURI(any)).thenReturn(Left(InvalidUrlFailure()));
+        when(converter.toURI('')).thenReturn(Left(InvalidUrlFailure()));
 
         expectLater(
             bloc.stream.asBroadcastStream(),
             emitsInOrder([
-              const Error(message: invalidUrlFailureMessage),
+              const Error(message: invalidUrlFailureMessage, activeTabIndex: 0),
             ]));
 
         addBlockEvent('');
@@ -94,8 +94,8 @@ void main() {
         expectLater(
             bloc.stream.asBroadcastStream(),
             emitsInOrder([
-              Loading(),
-              const Loaded(articles: articles),
+              const Loading(activeTabIndex: 0),
+              const Loaded(articles: articles, activeTabIndex: 0),
             ]));
 
         addBlockEvent(url);
@@ -114,8 +114,8 @@ void main() {
         expectLater(
             bloc.stream.asBroadcastStream(),
             emitsInOrder([
-              Loading(),
-              const Error(message: serverFailureMessage),
+              const Loading(activeTabIndex: 0),
+              const Error(message: serverFailureMessage, activeTabIndex: 0),
             ]));
 
         addBlockEvent(url);
