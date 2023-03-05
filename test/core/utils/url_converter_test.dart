@@ -13,7 +13,7 @@ void main() {
 
       setUp(
         () {
-          converter = UrlConverterImpl();
+          converter = UrlConverter();
         },
       );
       test('should return URI when valid url sent', () {
