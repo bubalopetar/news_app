@@ -41,7 +41,7 @@ void init() {
         Config(
           'some_key_for_cache',
           stalePeriod: const Duration(days: 1),
-          maxNrOfCacheObjects: 500,
+          maxNrOfCacheObjects: 1000,
         ),
       ));
 }
