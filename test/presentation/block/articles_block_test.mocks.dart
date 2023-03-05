@@ -47,10 +47,11 @@ class _FakeEither_1<L, R> extends _i1.SmartFake implements _i3.Either<L, R> {
         );
 }
 
-/// A class which mocks [GetArticles].
+/// A class which mocks [GetArticlesUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetArticles extends _i1.Mock implements _i4.GetArticlesUseCase {
+class MockGetArticlesUseCase extends _i1.Mock
+    implements _i4.GetArticlesUseCase {
   @override
   _i2.ArticlesRepository get repository => (super.noSuchMethod(
         Invocation.getter(#repository),
@@ -100,24 +101,25 @@ class MockGetArticles extends _i1.Mock implements _i4.GetArticlesUseCase {
 /// See the documentation for Mockito's code generation for more information.
 class MockUrlConverter extends _i1.Mock implements _i8.UrlConverter {
   @override
-  _i3.Either<_i6.Failure, Uri> toURI(String? url) => (super.noSuchMethod(
+  _i3.Either<_i8.InvalidUrlFailure, Uri> toURI(String? url) =>
+      (super.noSuchMethod(
         Invocation.method(
           #toURI,
           [url],
         ),
-        returnValue: _FakeEither_1<_i6.Failure, Uri>(
+        returnValue: _FakeEither_1<_i8.InvalidUrlFailure, Uri>(
           this,
           Invocation.method(
             #toURI,
             [url],
           ),
         ),
-        returnValueForMissingStub: _FakeEither_1<_i6.Failure, Uri>(
+        returnValueForMissingStub: _FakeEither_1<_i8.InvalidUrlFailure, Uri>(
           this,
           Invocation.method(
             #toURI,
             [url],
           ),
         ),
-      ) as _i3.Either<_i6.Failure, Uri>);
+      ) as _i3.Either<_i8.InvalidUrlFailure, Uri>);
 }
