@@ -17,26 +17,31 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
   GetArticlesUseCase usecase;
   UrlConverter urlConverter;
   ArticlesBloc({required this.usecase, required this.urlConverter})
-      : super(Empty()) {
+      : super(const Empty()) {
     on<GetArticlesFromUrlEvent>(getArticlesFromUrlEventHandler);
   }
 
   void getArticlesFromUrlEventHandler(event, emit) async {
     final urlEither = urlConverter.toURI(event.url);
-    urlEither.fold((failure) {
-      emit(const Error(message: invalidUrlFailureMessage));
-    }, (url) {
-      emit(Loading());
-      _callUseCase(url, emit);
+
+    await urlEither.fold((failure) async {
+      emit(Error(
+          message: invalidUrlFailureMessage,
+          activeTabIndex: event.activeTabIndex));
+    }, (url) async {
+      emit(Loading(activeTabIndex: event.activeTabIndex));
+      await _callUseCase(event, url, emit);
     });
   }
 
-  FutureOr<void> _callUseCase(url, emit) async {
+  FutureOr<void> _callUseCase(event, url, emit) async {
     final articles = await usecase(params: Params(url: url));
-    articles.fold((failure) {
-      emit(const Error(message: serverFailureMessage));
-    }, (articles) {
-      emit(Loaded(articles: articles));
+
+    await articles.fold((failure) async {
+      emit(Error(
+          message: serverFailureMessage, activeTabIndex: event.activeTabIndex));
+    }, (articles) async {
+      emit(Loaded(articles: articles, activeTabIndex: event.activeTabIndex));
     });
   }
 }
