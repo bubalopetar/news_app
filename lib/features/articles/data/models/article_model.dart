@@ -5,13 +5,15 @@ class ArticleModel extends Article {
   const ArticleModel({
     required String title,
     required String link,
-    String? description,
-    String? img,
+    String description = '',
+    String img = '',
+    String category = '',
     DateTime? pubDate,
   }) : super(
             link: link,
             title: title,
             description: description,
+            category: category,
             img: img,
             pubDate: pubDate);
 }
