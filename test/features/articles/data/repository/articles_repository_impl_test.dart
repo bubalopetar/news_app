@@ -16,8 +16,8 @@ import 'articles_repository_impl_test.mocks.dart';
 void main() {
   MockArticlesRemoteDataSource mockArticlesRemoteDataSource =
       MockArticlesRemoteDataSource();
-  ArticleRepositoryImpl repository =
-      ArticleRepositoryImpl(remoteDataSource: mockArticlesRemoteDataSource);
+  ArticlesRepositoryImpl repository =
+      ArticlesRepositoryImpl(remoteDataSource: mockArticlesRemoteDataSource);
   Uri url = Uri.parse('testUrl');
   List<ArticleModel> articles =
       ArticlesXMLParserImpl().getArticlesFromXML(fixture('articles.xml'));
@@ -25,8 +25,8 @@ void main() {
   setUp(
     () {
       mockArticlesRemoteDataSource = MockArticlesRemoteDataSource();
-      repository =
-          ArticleRepositoryImpl(remoteDataSource: mockArticlesRemoteDataSource);
+      repository = ArticlesRepositoryImpl(
+          remoteDataSource: mockArticlesRemoteDataSource);
     },
   );
   group(
