@@ -45,16 +45,6 @@ class _FakeStreamedResponse_1 extends _i1.SmartFake
         );
 }
 
-class _FakeRegExp_2 extends _i1.SmartFake implements RegExp {
-  _FakeRegExp_2(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
 /// A class which mocks [Client].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -356,26 +346,6 @@ class MockClient extends _i1.Mock implements _i2.Client {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockArticlesXMLParser extends _i1.Mock implements _i6.ArticlesXMLParser {
-  @override
-  RegExp get urlMatchingRegex => (super.noSuchMethod(
-        Invocation.getter(#urlMatchingRegex),
-        returnValue: _FakeRegExp_2(
-          this,
-          Invocation.getter(#urlMatchingRegex),
-        ),
-        returnValueForMissingStub: _FakeRegExp_2(
-          this,
-          Invocation.getter(#urlMatchingRegex),
-        ),
-      ) as RegExp);
-  @override
-  set urlMatchingRegex(RegExp? _urlMatchingRegex) => super.noSuchMethod(
-        Invocation.setter(
-          #urlMatchingRegex,
-          _urlMatchingRegex,
-        ),
-        returnValueForMissingStub: null,
-      );
   @override
   List<_i7.ArticleModel> getArticlesFromXML(String? xml) => (super.noSuchMethod(
         Invocation.method(
