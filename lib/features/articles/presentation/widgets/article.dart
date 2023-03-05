@@ -18,6 +18,7 @@ class ArticleWidget extends StatelessWidget {
       contentPadding: const EdgeInsets.only(top: 5),
       visualDensity: const VisualDensity(vertical: 4),
       title: Text(article.title),
+      subtitle: Text(article.category),
       leading: article.img == ''
           ? null
           : AspectRatio(
