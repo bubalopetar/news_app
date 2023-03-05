@@ -61,6 +61,9 @@ class ArticlesXMLParserImpl implements ArticlesXMLParser {
       if (img != null) return img;
     }
 
+    img = article.getElement('enclosure')?.getAttribute('url');
+    if (img != null) return img;
+
     return null;
   }
 
