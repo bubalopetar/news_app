@@ -10,7 +10,9 @@ abstract class ArticlesEvent extends Equatable {
 
 class GetArticlesFromUrlEvent extends ArticlesEvent {
   final String url;
+  final int activeTabIndex;
   GetArticlesFromUrlEvent({
     required this.url,
+    required this.activeTabIndex,
   }) : super([url]);
 }
