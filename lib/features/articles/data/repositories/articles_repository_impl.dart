@@ -5,10 +5,10 @@ import 'package:news_app/core/error/failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:news_app/features/articles/domain/repositories/articles_repository.dart';
 
-class ArticleRepositoryImpl extends ArticlesRepository {
+class ArticlesRepositoryImpl implements ArticlesRepository {
   final ArticlesRemoteDataSource remoteDataSource;
 
-  ArticleRepositoryImpl({required this.remoteDataSource});
+  ArticlesRepositoryImpl({required this.remoteDataSource});
   @override
   Future<Either<Failure, List<ArticleModel>>> getArticlesFrom(
       {required Uri url}) async {
