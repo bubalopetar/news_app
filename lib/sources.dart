@@ -208,6 +208,11 @@ List<Map<String, dynamic>> sourcesList = [
     'name': 'Jutarnji.hr',
     'url': 'https://www.jutarnji.hr/feed',
     'categories': []
+  },
+  {
+    'name': 'Bug.hr',
+    'url': 'https://www.bug.hr/rss',
+    'categories': [],
   }
 ];
 
