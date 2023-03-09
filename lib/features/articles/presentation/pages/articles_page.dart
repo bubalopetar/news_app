@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/features/articles/presentation/bloc/articles_bloc.dart';
 import 'package:news_app/features/articles/presentation/widgets/widgets.dart';
-import '../../domain/entities/article.dart';
 
 class ArticlesPage extends StatelessWidget {
   final ArticlesState state;
@@ -10,13 +9,6 @@ class ArticlesPage extends StatelessWidget {
     Key? key,
     required this.state,
   }) : super(key: key);
-
-  List<Article> sortByCategory(List<Article> articles) {
-    List<Article> tmp = articles
-      ..sort((Article a, Article b) => a.category.compareTo(b.category));
-    tmp = tmp.reversed.toList();
-    return tmp;
-  }
 
   Widget getBodyForState(ArticlesState state) {
     switch (state.runtimeType) {
@@ -31,8 +23,7 @@ class ArticlesPage extends StatelessWidget {
       case Loaded:
         {
           state = state as Loaded;
-          List<Article> articles = sortByCategory(state.articles);
-          return Articles(articles: articles);
+          return Articles(articles: state.articles);
         }
       default:
         {
@@ -46,7 +37,7 @@ class ArticlesPage extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar:
           SourcesNavigationBar(activeTabIndex: state.activeTabIndex!),
-      body: getBodyForState(state),
+      body: SafeArea(child: getBodyForState(state)),
     );
   }
 }
