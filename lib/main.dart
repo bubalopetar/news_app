@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/features/articles/presentation/widgets/articles_bloc_wrapper.dart';
+import 'package:news_app/features/articles/presentation/pages/article_web_view.dart';
+import 'package:news_app/features/articles/presentation/widgets/widgets.dart';
 import 'injection_container.dart' as di;
 
 void main() {
@@ -12,9 +13,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      routes: {
+        WebViewPage.routeName: (context) => const WebViewPage(),
+      },
       title: 'Flutter Demo',
-      home: ArticlesBlocProvider(),
+      home: const ArticlesBlocProvider(),
     );
   }
 }
