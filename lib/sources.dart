@@ -213,6 +213,11 @@ List<Map<String, dynamic>> sourcesList = [
     'name': 'Bug.hr',
     'url': 'https://www.bug.hr/rss',
     'categories': [],
+  },
+  {
+    'name': 'Slobodna Dalmacija.hr',
+    'url': 'https://slobodnadalmacija.hr/feed',
+    'categories': [],
   }
 ];
 
