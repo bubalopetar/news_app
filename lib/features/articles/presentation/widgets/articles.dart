@@ -21,7 +21,8 @@ class Articles extends StatelessWidget {
             useStickyGroupSeparators: true,
             order: GroupedListOrder.DESC,
             elements: articles,
-            groupSeparatorBuilder: (String category) => Category(category),
+            groupSeparatorBuilder: (String category) =>
+                category != '' ? Category(category) : SizedBox(),
             groupBy: (element) => element.category,
             itemBuilder: (context, Article article) {
               return ArticleWidget(article: article);
