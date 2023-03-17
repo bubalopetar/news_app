@@ -68,4 +68,53 @@ class MockArticlesRepository extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.Article>>>);
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, bool>> setToFavorites(
+          _i6.Article? article) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #setToFavorites,
+          [article],
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, bool>>.value(
+            _FakeEither_0<_i5.Failure, bool>(
+          this,
+          Invocation.method(
+            #setToFavorites,
+            [article],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Either<_i5.Failure, bool>>.value(
+                _FakeEither_0<_i5.Failure, bool>(
+          this,
+          Invocation.method(
+            #setToFavorites,
+            [article],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, bool>>);
+  @override
+  _i2.Either<_i5.Failure, List<_i6.Article>?> getFavorites() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getFavorites,
+          [],
+        ),
+        returnValue: _FakeEither_0<_i5.Failure, List<_i6.Article>?>(
+          this,
+          Invocation.method(
+            #getFavorites,
+            [],
+          ),
+        ),
+        returnValueForMissingStub:
+            _FakeEither_0<_i5.Failure, List<_i6.Article>?>(
+          this,
+          Invocation.method(
+            #getFavorites,
+            [],
+          ),
+        ),
+      ) as _i2.Either<_i5.Failure, List<_i6.Article>?>);
 }
