@@ -22,7 +22,7 @@ class Articles extends StatelessWidget {
             order: GroupedListOrder.DESC,
             elements: articles,
             groupSeparatorBuilder: (String category) =>
-                category != '' ? Category(category) : SizedBox(),
+                category != '' ? Category(category) : const SizedBox(),
             groupBy: (element) => element.category,
             itemBuilder: (context, Article article) {
               return ArticleWidget(article: article);
