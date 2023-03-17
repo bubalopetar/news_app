@@ -6,6 +6,8 @@
 import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:news_app/features/articles/data/datasources/articles_local_data_source.dart'
+    as _i5;
 import 'package:news_app/features/articles/data/datasources/articles_remote_data_source.dart'
     as _i2;
 import 'package:news_app/features/articles/data/models/article_model.dart'
@@ -40,4 +42,21 @@ class MockArticlesRemoteDataSource extends _i1.Mock
         returnValueForMissingStub:
             _i3.Future<List<_i4.ArticleModel>>.value(<_i4.ArticleModel>[]),
       ) as _i3.Future<List<_i4.ArticleModel>>);
+}
+
+/// A class which mocks [ArticlesLocalDataSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockArticlesLocalDataSource extends _i1.Mock
+    implements _i5.ArticlesLocalDataSource {
+  @override
+  _i3.Future<bool> cacheArticle(_i4.ArticleModel? article) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #cacheArticle,
+          [article],
+        ),
+        returnValue: _i3.Future<bool>.value(false),
+        returnValueForMissingStub: _i3.Future<bool>.value(false),
+      ) as _i3.Future<bool>);
 }
