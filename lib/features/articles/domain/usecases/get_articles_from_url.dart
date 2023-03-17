@@ -14,7 +14,7 @@ class GetArticlesUseCase implements UseCase<List<Article>, Params> {
 
   @override
   Future<Either<Failure, List<Article>>> call({required Params params}) async {
-    return repository.getArticlesFrom(url: params.url);
+    return await repository.getArticlesFrom(url: params.url);
   }
 }
 
