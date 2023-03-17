@@ -5,8 +5,6 @@ import 'package:news_app/features/articles/data/models/article_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class ArticlesRemoteDataSource {
-  // call endpoint for getting rrs feed
-  // throws [ServerException] for all error codes
   Future<List<ArticleModel>> getArticlesFrom({required Uri url});
 }
 
