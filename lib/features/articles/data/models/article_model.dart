@@ -16,4 +16,26 @@ class ArticleModel extends Article {
             category: category,
             img: img,
             pubDate: pubDate);
+
+  factory ArticleModel.fromJson(Map<String, dynamic> jsonMap) {
+    return ArticleModel(
+      title: jsonMap['title']!,
+      link: jsonMap['link']!,
+      category: jsonMap['category']!,
+      description: jsonMap['description']!,
+      img: jsonMap['img']!,
+      pubDate: DateTime.parse(jsonMap['pubDate']!),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'link': link,
+      'description': description,
+      'category': category,
+      'img': img,
+      'pubDate': pubDate!.toIso8601String(),
+    };
+  }
 }
