@@ -8,9 +8,11 @@ class Articles extends StatelessWidget {
   const Articles({
     Key? key,
     required this.articles,
+    required this.favorites,
   }) : super(key: key);
 
   final List<Article> articles;
+  final List<Article> favorites;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,11 @@ class Articles extends StatelessWidget {
                 category != '' ? Category(category) : const SizedBox(),
             groupBy: (element) => element.category,
             itemBuilder: (context, Article article) {
-              return ArticleWidget(article: article);
+              return ArticleWidget(
+                key: ValueKey(article.link),
+                article: article,
+                favorites: favorites,
+              );
             },
           ),
         ),
