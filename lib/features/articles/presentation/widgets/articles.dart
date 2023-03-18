@@ -20,11 +20,13 @@ class Articles extends StatelessWidget {
       children: [
         Expanded(
           child: GroupedListView(
+            separator: Divider(
+              color: Theme.of(context).primaryColor,
+            ),
             useStickyGroupSeparators: true,
             order: GroupedListOrder.DESC,
             elements: articles,
-            groupSeparatorBuilder: (String category) =>
-                category != '' ? Category(category) : const SizedBox(),
+            groupSeparatorBuilder: (String category) => Category(category),
             groupBy: (element) => element.category,
             itemBuilder: (context, Article article) {
               return ArticleWidget(
@@ -41,29 +43,39 @@ class Articles extends StatelessWidget {
 }
 
 class Category extends StatelessWidget {
-  final Color tileColor = Colors.grey.withOpacity(0.5);
   final String category;
-  Category(
+  const Category(
     this.category, {
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 1),
-            decoration: BoxDecoration(
-                color: tileColor,
-                border: Border.all(color: tileColor),
-                borderRadius: const BorderRadius.all(Radius.circular(10))),
-            child: Text(
-              category,
-              style: const TextStyle(fontSize: 16, color: Colors.white),
-            ))
-      ],
-    );
+    return category != ''
+        ? Container(
+            child: Row(children: <Widget>[
+              Expanded(
+                child: Container(
+                    margin: const EdgeInsets.only(left: 10.0, right: 20.0),
+                    child: Divider(
+                      color: Theme.of(context).primaryColor,
+                      height: 36,
+                    )),
+              ),
+              Text(
+                category,
+                style: const TextStyle(fontSize: 18),
+              ),
+              Expanded(
+                child: Container(
+                    margin: const EdgeInsets.only(left: 20.0, right: 10.0),
+                    child: Divider(
+                      color: Theme.of(context).primaryColor,
+                      height: 36,
+                    )),
+              ),
+            ]),
+          )
+        : const SizedBox();
   }
 }
