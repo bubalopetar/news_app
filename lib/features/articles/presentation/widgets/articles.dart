@@ -55,12 +55,10 @@ class Category extends StatelessWidget {
         ? Container(
             child: Row(children: <Widget>[
               Expanded(
-                child: Container(
-                    margin: const EdgeInsets.only(left: 10.0, right: 20.0),
-                    child: Divider(
-                      color: Theme.of(context).primaryColor,
-                      height: 36,
-                    )),
+                child: Divider(
+                  color: Theme.of(context).primaryColor,
+                  height: 36,
+                ),
               ),
               Text(
                 category,
