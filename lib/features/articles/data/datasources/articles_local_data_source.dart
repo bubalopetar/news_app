@@ -8,8 +8,8 @@ import 'package:news_app/features/articles/data/models/article_model.dart';
 import '../../domain/entities/article.dart';
 
 abstract class ArticlesLocalDataSource {
-  Future<bool> cacheArticle(ArticleModel article);
-  List<Article>? getCachedArticles();
+  Future<bool> cacheOrRemoveArticle(ArticleModel article);
+  List<Article> getCachedArticles();
 }
 
 class ArticlesLocalDataSourceImpl implements ArticlesLocalDataSource {
@@ -19,12 +19,16 @@ class ArticlesLocalDataSourceImpl implements ArticlesLocalDataSource {
   });
 
   @override
-  Future<bool> cacheArticle(ArticleModel article) async {
+  Future<bool> cacheOrRemoveArticle(ArticleModel article) async {
     List? cachedArticles = getCachedArticles();
-    if (cachedArticles == null) {
+    if (cachedArticles == []) {
       cachedArticles = [article];
     } else {
-      cachedArticles.insert(0, article);
+      if (cachedArticles.contains(article)) {
+        cachedArticles.remove(article);
+      } else {
+        cachedArticles.insert(0, article);
+      }
     }
 
     cachedArticles = cachedArticles.map((e) => jsonEncode(e.toJson())).toList();
@@ -34,11 +38,11 @@ class ArticlesLocalDataSourceImpl implements ArticlesLocalDataSource {
   }
 
   @override
-  List<Article>? getCachedArticles() {
+  List<Article> getCachedArticles() {
     final results = sharedPreferences.getStringList('favorites');
     if (results != null) {
       return results.map((e) => ArticleModel.fromJson(jsonDecode(e))).toList();
     }
-    return null;
+    return [];
   }
 }
