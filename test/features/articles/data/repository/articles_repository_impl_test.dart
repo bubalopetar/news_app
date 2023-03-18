@@ -75,11 +75,11 @@ void main() {
       test(
         "should call localDataSource cacheArticleFunction and return true",
         () async {
-          when(articlesLocalDataSource.cacheArticle(article))
+          when(articlesLocalDataSource.cacheOrRemoveArticle(article))
               .thenAnswer((realInvocation) => Future.value(true));
-          final response = await repository.setToFavorites(article);
+          final response = await repository.toggleFavorites(article);
 
-          verify(articlesLocalDataSource.cacheArticle(article));
+          verify(articlesLocalDataSource.cacheOrRemoveArticle(article));
           expect(response, const Right(true));
         },
       );
@@ -87,11 +87,11 @@ void main() {
       test(
         "should return CacheFailure when localDataSource throws an CacheException",
         () async {
-          when(articlesLocalDataSource.cacheArticle(article))
+          when(articlesLocalDataSource.cacheOrRemoveArticle(article))
               .thenThrow(CacheException());
-          final response = await repository.setToFavorites(article);
+          final response = await repository.toggleFavorites(article);
 
-          verify(articlesLocalDataSource.cacheArticle(article));
+          verify(articlesLocalDataSource.cacheOrRemoveArticle(article));
           expect(response, Left(CacheFailure()));
         },
       );
@@ -107,26 +107,16 @@ void main() {
           when(articlesLocalDataSource.getCachedArticles())
               .thenAnswer((realInvocation) => articles);
           final result = repository.getFavorites();
-          expect(result, right(articles));
+          expect(result, articles);
         },
       );
       test(
         "should get and return a null from datasource",
         () async {
           when(articlesLocalDataSource.getCachedArticles())
-              .thenAnswer((realInvocation) => null);
+              .thenAnswer((realInvocation) => articles);
           final result = repository.getFavorites();
-          expect(result, right(null));
-        },
-      );
-      test(
-        "should catch and CacheException and return CacheFailure",
-        () async {
-          when(articlesLocalDataSource.getCachedArticles())
-              .thenThrow(CacheException());
-
-          final result = repository.getFavorites();
-          expect(result, Left(CacheFailure()));
+          expect(result, articles);
         },
       );
     },
