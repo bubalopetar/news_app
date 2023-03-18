@@ -15,6 +15,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.light().copyWith(
+        primaryColor: Colors.black,
+        bottomAppBarColor: Colors.grey.shade500,
+      ),
       routes: {
         WebViewPage.routeName: (context) => const WebViewPage(),
       },
