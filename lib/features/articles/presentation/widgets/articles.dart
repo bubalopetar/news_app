@@ -52,28 +52,26 @@ class Category extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return category != ''
-        ? Container(
-            child: Row(children: <Widget>[
-              Expanded(
-                child: Divider(
-                  color: Theme.of(context).primaryColor,
-                  height: 36,
-                ),
+        ? Row(children: <Widget>[
+            Expanded(
+              child: Divider(
+                color: Theme.of(context).primaryColor,
+                height: 36,
               ),
-              Text(
-                category,
-                style: const TextStyle(fontSize: 18),
-              ),
-              Expanded(
-                child: Container(
-                    margin: const EdgeInsets.only(left: 20.0, right: 10.0),
-                    child: Divider(
-                      color: Theme.of(context).primaryColor,
-                      height: 36,
-                    )),
-              ),
-            ]),
-          )
+            ),
+            Text(
+              category,
+              style: const TextStyle(fontSize: 18),
+            ),
+            Expanded(
+              child: Container(
+                  margin: const EdgeInsets.only(left: 20.0, right: 10.0),
+                  child: Divider(
+                    color: Theme.of(context).primaryColor,
+                    height: 36,
+                  )),
+            ),
+          ])
         : const SizedBox();
   }
 }
