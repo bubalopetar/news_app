@@ -12,10 +12,12 @@ import 'package:news_app/core/utils/url_converter.dart' as _i8;
 import 'package:news_app/features/articles/domain/entities/article.dart' as _i7;
 import 'package:news_app/features/articles/domain/repositories/articles_repository.dart'
     as _i2;
+import 'package:news_app/features/articles/domain/usecases/toggle_favorites.dart'
+    as _i9;
 import 'package:news_app/features/articles/domain/usecases/get_articles_from_url.dart'
     as _i4;
-import 'package:news_app/features/articles/domain/usecases/set_to_favorites.dart'
-    as _i9;
+import 'package:news_app/features/articles/domain/usecases/get_favorites.dart'
+    as _i10;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -126,11 +128,11 @@ class MockUrlConverter extends _i1.Mock implements _i8.UrlConverter {
       ) as _i3.Either<_i8.InvalidUrlFailure, Uri>);
 }
 
-/// A class which mocks [SetArticleToFavoritesUseCase].
+/// A class which mocks [AddToFavoritesUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSetArticleToFavoritesUseCase extends _i1.Mock
-    implements _i9.SetArticleToFavoritesUseCase {
+class MockAddToFavoritesUseCase extends _i1.Mock
+    implements _i9.ToggleFavoritesUseCase {
   @override
   _i2.ArticlesRepository get repository => (super.noSuchMethod(
         Invocation.getter(#repository),
@@ -172,4 +174,64 @@ class MockSetArticleToFavoritesUseCase extends _i1.Mock
           ),
         )),
       ) as _i5.Future<_i3.Either<_i6.Failure, void>>);
+}
+
+/// A class which mocks [GetFavoritesUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetFavoritesUseCase extends _i1.Mock
+    implements _i10.GetFavoritesUseCase {
+  @override
+  _i2.ArticlesRepository get repository => (super.noSuchMethod(
+        Invocation.getter(#repository),
+        returnValue: _FakeArticlesRepository_0(
+          this,
+          Invocation.getter(#repository),
+        ),
+        returnValueForMissingStub: _FakeArticlesRepository_0(
+          this,
+          Invocation.getter(#repository),
+        ),
+      ) as _i2.ArticlesRepository);
+  @override
+  List<_i7.Article> syncCall({required _i10.NoParams? params}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #syncCall,
+          [],
+          {#params: params},
+        ),
+        returnValue: <_i7.Article>[],
+        returnValueForMissingStub: <_i7.Article>[],
+      ) as List<_i7.Article>);
+  @override
+  _i5.Future<_i3.Either<_i6.Failure, List<_i7.Article>?>> call(
+          {required _i10.NoParams? params}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [],
+          {#params: params},
+        ),
+        returnValue:
+            _i5.Future<_i3.Either<_i6.Failure, List<_i7.Article>?>>.value(
+                _FakeEither_1<_i6.Failure, List<_i7.Article>?>(
+          this,
+          Invocation.method(
+            #call,
+            [],
+            {#params: params},
+          ),
+        )),
+        returnValueForMissingStub:
+            _i5.Future<_i3.Either<_i6.Failure, List<_i7.Article>?>>.value(
+                _FakeEither_1<_i6.Failure, List<_i7.Article>?>(
+          this,
+          Invocation.method(
+            #call,
+            [],
+            {#params: params},
+          ),
+        )),
+      ) as _i5.Future<_i3.Either<_i6.Failure, List<_i7.Article>?>>);
 }

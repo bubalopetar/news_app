@@ -12,6 +12,7 @@ import 'package:news_app/features/articles/data/datasources/articles_remote_data
     as _i2;
 import 'package:news_app/features/articles/data/models/article_model.dart'
     as _i4;
+import 'package:news_app/features/articles/domain/entities/article.dart' as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -50,7 +51,7 @@ class MockArticlesRemoteDataSource extends _i1.Mock
 class MockArticlesLocalDataSource extends _i1.Mock
     implements _i5.ArticlesLocalDataSource {
   @override
-  _i3.Future<bool> cacheArticle(_i4.ArticleModel? article) =>
+  _i3.Future<bool> cacheOrRemoveArticle(_i4.ArticleModel? article) =>
       (super.noSuchMethod(
         Invocation.method(
           #cacheArticle,
@@ -59,4 +60,13 @@ class MockArticlesLocalDataSource extends _i1.Mock
         returnValue: _i3.Future<bool>.value(false),
         returnValueForMissingStub: _i3.Future<bool>.value(false),
       ) as _i3.Future<bool>);
+  @override
+  List<_i6.Article> getCachedArticles() => (super.noSuchMethod(
+        Invocation.method(
+          #getCachedArticles,
+          [],
+        ),
+        returnValue: <_i6.Article>[],
+        returnValueForMissingStub: <_i6.Article>[],
+      ) as List<_i6.Article>);
 }
