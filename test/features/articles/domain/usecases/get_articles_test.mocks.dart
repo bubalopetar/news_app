@@ -69,7 +69,7 @@ class MockArticlesRepository extends _i1.Mock
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.Article>>>);
   @override
-  _i4.Future<_i2.Either<_i5.Failure, bool>> setToFavorites(
+  _i4.Future<_i2.Either<_i5.Failure, bool>> toggleFavorites(
           _i6.Article? article) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -95,26 +95,12 @@ class MockArticlesRepository extends _i1.Mock
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, bool>>);
   @override
-  _i2.Either<_i5.Failure, List<_i6.Article>?> getFavorites() =>
-      (super.noSuchMethod(
+  List<_i6.Article> getFavorites() => (super.noSuchMethod(
         Invocation.method(
           #getFavorites,
           [],
         ),
-        returnValue: _FakeEither_0<_i5.Failure, List<_i6.Article>?>(
-          this,
-          Invocation.method(
-            #getFavorites,
-            [],
-          ),
-        ),
-        returnValueForMissingStub:
-            _FakeEither_0<_i5.Failure, List<_i6.Article>?>(
-          this,
-          Invocation.method(
-            #getFavorites,
-            [],
-          ),
-        ),
-      ) as _i2.Either<_i5.Failure, List<_i6.Article>?>);
+        returnValue: <_i6.Article>[],
+        returnValueForMissingStub: <_i6.Article>[],
+      ) as List<_i6.Article>);
 }
