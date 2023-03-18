@@ -61,9 +61,11 @@ class _ArticleWidgetState extends State<ArticleWidget> {
 
   Icon getFavoriteIcon() {
     if (isFavorite) {
-      return const Icon(Icons.favorite);
+      return const Icon(
+        Icons.star,
+      );
     } else {
-      return const Icon(Icons.favorite_border);
+      return const Icon(Icons.star_border);
     }
   }
 
@@ -72,20 +74,17 @@ class _ArticleWidgetState extends State<ArticleWidget> {
     return InkWell(
       onTap: () => Navigator.of(context)
           .pushNamed(WebViewPage.routeName, arguments: widget.article.link),
-      child: Card(
-        elevation: 5,
-        child: ListTile(
-          visualDensity: const VisualDensity(vertical: 4),
-          contentPadding: const EdgeInsets.all(0),
-          title: Text(
-            widget.article.title,
-            maxLines: 3,
-          ),
-          leading: _getLeading(),
-          trailing: IconButton(
-              onPressed: () => toggleFavorites(widget.article, context),
-              icon: getFavoriteIcon()),
+      child: ListTile(
+        visualDensity: const VisualDensity(vertical: 4),
+        contentPadding: const EdgeInsets.all(0),
+        title: Text(
+          widget.article.title,
+          maxLines: 3,
         ),
+        leading: _getLeading(),
+        trailing: IconButton(
+            onPressed: () => toggleFavorites(widget.article, context),
+            icon: getFavoriteIcon()),
       ),
     );
   }
