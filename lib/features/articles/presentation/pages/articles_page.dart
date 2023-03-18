@@ -23,7 +23,10 @@ class ArticlesPage extends StatelessWidget {
       case Loaded:
         {
           state = state as Loaded;
-          return Articles(articles: state.articles);
+          return Articles(
+            articles: state.articles,
+            favorites: state.favorites,
+          );
         }
       default:
         {
