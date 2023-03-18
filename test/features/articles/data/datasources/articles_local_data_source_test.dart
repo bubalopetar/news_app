@@ -71,14 +71,14 @@ void main() {
       );
 
       test(
-        "should return null from sharedPreferences if there are no favorites",
+        "should return [] from sharedPreferences if there are no favorites",
         () {
           when(sharedPreferences.getStringList('favorites')).thenAnswer(
             (realInvocation) => null,
           );
           final result = localDataSource.getCachedArticles();
           verify(sharedPreferences.getStringList('favorites'));
-          expect(result, null);
+          expect(result, []);
         },
       );
     },
@@ -102,7 +102,7 @@ void main() {
             (realInvocation) async => true,
           );
 
-          final result = await localDataSource.cacheArticle(article);
+          final result = await localDataSource.cacheOrRemoveArticle(article);
           verify(sharedPreferences.getStringList('favorites'));
 
           verify(sharedPreferences.setStringList('favorites', any));
