@@ -16,3 +16,9 @@ class GetArticlesFromUrlEvent extends ArticlesEvent {
     required this.activeTabIndex,
   }) : super([url]);
 }
+
+class TogleFavoritesEvent extends ArticlesEvent {
+  final Article article;
+
+  const TogleFavoritesEvent(this.article);
+}
