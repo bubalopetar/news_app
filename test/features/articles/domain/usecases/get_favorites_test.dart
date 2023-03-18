@@ -1,9 +1,6 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:news_app/core/error/failures.dart';
 import 'package:news_app/features/articles/data/models/article_model.dart';
-import 'package:news_app/features/articles/domain/entities/article.dart';
 import 'package:news_app/features/articles/domain/usecases/get_favorites.dart';
 
 import 'get_articles_test.mocks.dart';
@@ -44,36 +41,22 @@ void main() {
       test(
         "should return a list of Articles from repository getFavorites() method",
         () async {
-          when(articlesRepository.getFavorites())
-              .thenAnswer((_) => Right(articles));
+          when(articlesRepository.getFavorites()).thenAnswer((_) => articles);
 
           final result = getFavoritesUseCase.syncCall(params: NoParams());
           verify(articlesRepository.getFavorites());
-          expect(result, Right(articles));
+          expect(result, articles);
         },
       );
 
       test(
         "should return a null if repository getFavorites() method returns it",
         () async {
-          when(articlesRepository.getFavorites())
-              .thenAnswer((_) => const Right(null));
+          when(articlesRepository.getFavorites()).thenAnswer((_) => []);
 
           final result = getFavoritesUseCase.syncCall(params: NoParams());
           verify(articlesRepository.getFavorites());
-          expect(result, const Right(null));
-        },
-      );
-
-      test(
-        "should return a CacheFailure if repository getFavorites() method returns it",
-        () async {
-          when(articlesRepository.getFavorites())
-              .thenAnswer((_) => Left(CacheFailure()));
-
-          final result = getFavoritesUseCase.syncCall(params: NoParams());
-          verify(articlesRepository.getFavorites());
-          expect(result, Left(CacheFailure()));
+          expect(result, []);
         },
       );
     },
