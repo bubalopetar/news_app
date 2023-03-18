@@ -12,14 +12,13 @@ class GetFavoritesUseCase implements UseCase<List<Article>?, NoParams> {
     required this.repository,
   });
 
-  Either<Failure, List<Article>?> syncCall({required NoParams params}) {
+  List<Article> syncCall({required NoParams params}) {
     final result = repository.getFavorites();
     return result;
   }
 
   @override
   Future<Either<Failure, List<Article>?>> call({required NoParams params}) {
-    // TODO: implement call
     throw UnimplementedError();
   }
 }
