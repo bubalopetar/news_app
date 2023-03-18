@@ -23,10 +23,11 @@ class Loading extends ArticlesState {
 
 class Loaded extends ArticlesState {
   final List<Article> articles;
-  const Loaded({
-    activeTabIndex,
-    required this.articles,
-  }) : super(activeTabIndex);
+  final List<Article> favorites;
+
+  const Loaded(
+      {activeTabIndex, required this.articles, required this.favorites})
+      : super(activeTabIndex);
   @override
   List<Object> get props => [articles];
 }
