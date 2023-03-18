@@ -30,10 +30,10 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> setToFavorites(Article article) async {
+  Future<Either<Failure, bool>> toggleFavorites(Article article) async {
     try {
       final result =
-          await localDataSource.cacheArticle(article as ArticleModel);
+          await localDataSource.cacheOrRemoveArticle(article as ArticleModel);
       return Right(result);
     } on CacheException {
       return Left(CacheFailure());
@@ -41,12 +41,8 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
   }
 
   @override
-  Either<Failure, List<Article>?> getFavorites() {
-    try {
-      final result = localDataSource.getCachedArticles();
-      return Right(result);
-    } on CacheException {
-      return Left(CacheFailure());
-    }
+  List<Article> getFavorites() {
+    final result = localDataSource.getCachedArticles();
+    return result;
   }
 }
