@@ -194,44 +194,14 @@ class MockGetFavoritesUseCase extends _i1.Mock
         ),
       ) as _i2.ArticlesRepository);
   @override
-  List<_i7.Article> syncCall({required _i10.NoParams? params}) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #syncCall,
-          [],
-          {#params: params},
-        ),
-        returnValue: <_i7.Article>[],
-        returnValueForMissingStub: <_i7.Article>[],
-      ) as List<_i7.Article>);
-  @override
-  _i5.Future<_i3.Either<_i6.Failure, List<_i7.Article>?>> call(
-          {required _i10.NoParams? params}) =>
+  List<_i7.Article> call({required _i10.NoParams? params}) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [],
           {#params: params},
         ),
-        returnValue:
-            _i5.Future<_i3.Either<_i6.Failure, List<_i7.Article>?>>.value(
-                _FakeEither_1<_i6.Failure, List<_i7.Article>?>(
-          this,
-          Invocation.method(
-            #call,
-            [],
-            {#params: params},
-          ),
-        )),
-        returnValueForMissingStub:
-            _i5.Future<_i3.Either<_i6.Failure, List<_i7.Article>?>>.value(
-                _FakeEither_1<_i6.Failure, List<_i7.Article>?>(
-          this,
-          Invocation.method(
-            #call,
-            [],
-            {#params: params},
-          ),
-        )),
-      ) as _i5.Future<_i3.Either<_i6.Failure, List<_i7.Article>?>>);
+        returnValue: <_i7.Article>[],
+        returnValueForMissingStub: <_i7.Article>[],
+      ) as List<_i7.Article>);
 }
