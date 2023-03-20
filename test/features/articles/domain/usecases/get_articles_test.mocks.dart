@@ -73,14 +73,14 @@ class MockArticlesRepository extends _i1.Mock
           _i6.Article? article) =>
       (super.noSuchMethod(
         Invocation.method(
-          #setToFavorites,
+          #toggleFavorites,
           [article],
         ),
         returnValue: _i4.Future<_i2.Either<_i5.Failure, bool>>.value(
             _FakeEither_0<_i5.Failure, bool>(
           this,
           Invocation.method(
-            #setToFavorites,
+            #toggleFavorites,
             [article],
           ),
         )),
@@ -89,7 +89,7 @@ class MockArticlesRepository extends _i1.Mock
                 _FakeEither_0<_i5.Failure, bool>(
           this,
           Invocation.method(
-            #setToFavorites,
+            #toggleFavorites,
             [article],
           ),
         )),

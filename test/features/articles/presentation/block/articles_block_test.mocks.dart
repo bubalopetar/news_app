@@ -12,12 +12,12 @@ import 'package:news_app/core/utils/url_converter.dart' as _i8;
 import 'package:news_app/features/articles/domain/entities/article.dart' as _i7;
 import 'package:news_app/features/articles/domain/repositories/articles_repository.dart'
     as _i2;
-import 'package:news_app/features/articles/domain/usecases/toggle_favorites.dart'
-    as _i9;
 import 'package:news_app/features/articles/domain/usecases/get_articles_from_url.dart'
     as _i4;
 import 'package:news_app/features/articles/domain/usecases/get_favorites.dart'
     as _i10;
+import 'package:news_app/features/articles/domain/usecases/toggle_favorites.dart'
+    as _i9;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -128,10 +128,10 @@ class MockUrlConverter extends _i1.Mock implements _i8.UrlConverter {
       ) as _i3.Either<_i8.InvalidUrlFailure, Uri>);
 }
 
-/// A class which mocks [AddToFavoritesUseCase].
+/// A class which mocks [ToggleFavoritesUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAddToFavoritesUseCase extends _i1.Mock
+class MockToggleFavoritesUseCase extends _i1.Mock
     implements _i9.ToggleFavoritesUseCase {
   @override
   _i2.ArticlesRepository get repository => (super.noSuchMethod(
