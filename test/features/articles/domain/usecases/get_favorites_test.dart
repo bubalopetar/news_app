@@ -43,7 +43,7 @@ void main() {
         () async {
           when(articlesRepository.getFavorites()).thenAnswer((_) => articles);
 
-          final result = getFavoritesUseCase.syncCall(params: NoParams());
+          final result = getFavoritesUseCase(params: NoParams());
           verify(articlesRepository.getFavorites());
           expect(result, articles);
         },
@@ -54,7 +54,7 @@ void main() {
         () async {
           when(articlesRepository.getFavorites()).thenAnswer((_) => []);
 
-          final result = getFavoritesUseCase.syncCall(params: NoParams());
+          final result = getFavoritesUseCase(params: NoParams());
           verify(articlesRepository.getFavorites());
           expect(result, []);
         },
