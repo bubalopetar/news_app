@@ -3,9 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/utils/url_converter.dart';
 import 'package:news_app/features/articles/domain/entities/article.dart';
-import 'package:news_app/features/articles/domain/usecases/toggle_favorites.dart';
-import 'package:news_app/features/articles/domain/usecases/get_articles_from_url.dart';
-import 'package:news_app/features/articles/domain/usecases/get_favorites.dart';
+import 'package:news_app/features/articles/domain/usecases/usecases.dart';
 
 part 'articles_event.dart';
 part 'articles_state.dart';
@@ -46,7 +44,7 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
 
   FutureOr<void> _callGetArticlesUseCase(event, url, emit) async {
     final articles = await getArticlesUseCase(params: Params(url: url));
-    final favorites = getFavoritesUseCase.syncCall(params: NoParams());
+    final favorites = getFavoritesUseCase(params: NoParams());
 
     await articles.fold((failure) async {
       emit(Error(
@@ -68,7 +66,7 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
   //////////////////////
 
   void getFavoritesEventHandler(event, emit) {
-    final favorites = getFavoritesUseCase.syncCall(params: NoParams());
+    final favorites = getFavoritesUseCase(params: NoParams());
 
     if (favorites.isEmpty) {
       emit(Empty(activeTab: event.activeTabIndex, message: 'No Favorites'));
