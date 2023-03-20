@@ -12,11 +12,15 @@ abstract class ArticlesState extends Equatable {
 }
 
 class Empty extends ArticlesState {
-  const Empty() : super(initialActiveTabIndex);
+  final String message;
+  final int? activeTab = initialActiveTabIndex;
+
+  const Empty({activeTab, this.message = ''}) : super(activeTab);
 }
 
 class Loading extends ArticlesState {
-  const Loading({activeTabIndex}) : super(activeTabIndex);
+  final int? activeTab = initialActiveTabIndex;
+  const Loading({activeTab}) : super(activeTab);
   @override
   List<Object> get props => [];
 }
