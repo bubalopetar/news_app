@@ -102,6 +102,7 @@ class _FavoriteButtonState extends State<FavoriteButton> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+        splashColor: Colors.transparent,
         onPressed: () => toggleFavorites(widget.article, context),
         icon: getFavoriteIcon());
   }
