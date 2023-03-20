@@ -8,7 +8,7 @@ import '../../domain/entities/article.dart';
 import '../bloc/articles_bloc.dart';
 import '../pages/article_web_view.dart';
 
-class ArticleWidget extends StatefulWidget {
+class ArticleWidget extends StatelessWidget {
   const ArticleWidget({
     required Key? key,
     required this.article,
@@ -18,13 +18,59 @@ class ArticleWidget extends StatefulWidget {
   final List<Article> favorites;
   final Article article;
 
+  AspectRatio? _getLeadingImgOrNull() {
+    return article.img == ''
+        ? null
+        : AspectRatio(
+            aspectRatio: 16 / 9,
+            child: CachedNetworkImage(
+              fit: BoxFit.cover,
+              imageUrl: article.img,
+              cacheManager: serviceLocator.get<CacheManager>(),
+              placeholder: (context, url) =>
+                  const Center(child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+            ),
+          );
+  }
+
+  void openArticle(BuildContext context) {
+    Navigator.of(context)
+        .pushNamed(WebViewPage.routeName, arguments: article.link);
+  }
+
   @override
-  State<ArticleWidget> createState() => _ArticleWidgetState();
+  Widget build(BuildContext context) {
+    return InkWell(
+        onTap: () => openArticle(context),
+        child: ListTile(
+          visualDensity: const VisualDensity(vertical: 4),
+          contentPadding: const EdgeInsets.all(0),
+          title: Text(
+            article.title,
+            maxLines: 3,
+          ),
+          leading: _getLeadingImgOrNull(),
+          trailing: FavoriteButton(
+            article: article,
+            favorites: favorites,
+          ),
+        ));
+  }
 }
 
-class _ArticleWidgetState extends State<ArticleWidget> {
+class FavoriteButton extends StatefulWidget {
+  const FavoriteButton(
+      {required this.article, required this.favorites, super.key});
+  final Article article;
+  final List<Article> favorites;
+  @override
+  State<FavoriteButton> createState() => _FavoriteButtonState();
+}
+
+class _FavoriteButtonState extends State<FavoriteButton> {
   bool init = true;
-  bool isFavorite = true;
+  bool isFavorite = false;
 
   @override
   void initState() {
@@ -33,30 +79,6 @@ class _ArticleWidgetState extends State<ArticleWidget> {
       isFavorite = widget.favorites.contains(widget.article);
     }
     super.initState();
-  }
-
-  void toggleFavorites(Article article, BuildContext context) {
-    setState(() {
-      isFavorite = !isFavorite;
-    });
-
-    BlocProvider.of<ArticlesBloc>(context).add(TogleFavoritesEvent(article));
-  }
-
-  AspectRatio? _getLeading() {
-    return widget.article.img == ''
-        ? null
-        : AspectRatio(
-            aspectRatio: 16 / 9,
-            child: CachedNetworkImage(
-              fit: BoxFit.cover,
-              imageUrl: widget.article.img,
-              cacheManager: serviceLocator.get<CacheManager>(),
-              placeholder: (context, url) =>
-                  const Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-            ),
-          );
   }
 
   Icon getFavoriteIcon() {
@@ -69,23 +91,18 @@ class _ArticleWidgetState extends State<ArticleWidget> {
     }
   }
 
+  void toggleFavorites(Article article, BuildContext context) {
+    setState(() {
+      isFavorite = !isFavorite;
+    });
+
+    BlocProvider.of<ArticlesBloc>(context).add(TogleFavoritesEvent(article));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => Navigator.of(context)
-          .pushNamed(WebViewPage.routeName, arguments: widget.article.link),
-      child: ListTile(
-        visualDensity: const VisualDensity(vertical: 4),
-        contentPadding: const EdgeInsets.all(0),
-        title: Text(
-          widget.article.title,
-          maxLines: 3,
-        ),
-        leading: _getLeading(),
-        trailing: IconButton(
-            onPressed: () => toggleFavorites(widget.article, context),
-            icon: getFavoriteIcon()),
-      ),
-    );
+    return IconButton(
+        onPressed: () => toggleFavorites(widget.article, context),
+        icon: getFavoriteIcon());
   }
 }
