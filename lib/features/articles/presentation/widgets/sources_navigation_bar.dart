@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/core/themes/app_themes.dart';
+import 'package:news_app/core/themes/bloc/theme_bloc.dart';
 import 'package:news_app/sources.dart';
 
 import '../bloc/articles_bloc.dart';
@@ -17,9 +19,10 @@ class _SourcesNavigationBarState extends State<SourcesNavigationBar> {
   final int optionsIndex = 6;
 
   BottomNavigationBarItem getOptionsItem() {
-    return const BottomNavigationBarItem(
+    return BottomNavigationBarItem(
         icon: Icon(
           Icons.more_vert,
+          color: Theme.of(context).primaryColor,
         ),
         label: '');
   }
@@ -46,6 +49,17 @@ class _SourcesNavigationBarState extends State<SourcesNavigationBar> {
         value: Options.favorites,
         child: Text("Favorites"),
       ),
+      PopupMenuItem(
+        child: const Text('Change theme'),
+        onTap: () {
+          final provider = BlocProvider.of<ThemeBloc>(context);
+          final theme = Theme.of(context).brightness == Brightness.dark
+              ? AppTheme.light
+              : AppTheme.dark;
+
+          provider.add(ChangeThemeEvent(theme));
+        },
+      )
     ];
     final size = MediaQuery.of(context).size;
     final width = size.width;
