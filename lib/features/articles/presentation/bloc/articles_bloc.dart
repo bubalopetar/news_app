@@ -1,8 +1,6 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import 'dart:async';
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/utils/url_converter.dart';
 import 'package:news_app/features/articles/domain/entities/article.dart';
 import 'package:news_app/features/articles/domain/usecases/toggle_favorites.dart';
@@ -17,22 +15,21 @@ const invalidUrlFailureMessage = 'INVALID_URL_FAILURE';
 
 class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
   GetArticlesUseCase getArticlesUseCase;
-  ToggleFavoritesUseCase addToFavoritesUseCase;
+  ToggleFavoritesUseCase toggleFavoritesUseCase;
   GetFavoritesUseCase getFavoritesUseCase;
   UrlConverter urlConverter;
+
   ArticlesBloc(
       {required this.getArticlesUseCase,
-      required this.addToFavoritesUseCase,
+      required this.toggleFavoritesUseCase,
       required this.getFavoritesUseCase,
       required this.urlConverter})
-      : super(const Empty()) {
+      : super(const Empty(activeTab: initialActiveTabIndex)) {
     on<GetArticlesFromUrlEvent>(getArticlesFromUrlEventHandler);
     on<TogleFavoritesEvent>(toggleFavoritesEventHandler);
+    on<GetFavoritesEvent>(getFavoritesEventHandler);
   }
-
-  void toggleFavoritesEventHandler(event, emit) async {
-    addToFavoritesUseCase(params: CAParams(article: event.article));
-  }
+  /////////////////////
 
   void getArticlesFromUrlEventHandler(event, emit) async {
     final urlEither = urlConverter.toURI(event.url);
@@ -42,19 +39,14 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
           message: invalidUrlFailureMessage,
           activeTabIndex: event.activeTabIndex));
     }, (url) async {
-      emit(Loading(activeTabIndex: event.activeTabIndex));
+      emit(Loading(activeTab: event.activeTabIndex));
       await _callGetArticlesUseCase(event, url, emit);
     });
   }
 
-  List<Article> getFavorites() {
-    final r = getFavoritesUseCase.syncCall(params: NoParams());
-    return r;
-  }
-
   FutureOr<void> _callGetArticlesUseCase(event, url, emit) async {
     final articles = await getArticlesUseCase(params: Params(url: url));
-    final favorites = getFavorites();
+    final favorites = getFavoritesUseCase.syncCall(params: NoParams());
 
     await articles.fold((failure) async {
       emit(Error(
@@ -65,5 +57,26 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
           activeTabIndex: event.activeTabIndex,
           favorites: favorites));
     });
+  }
+
+  //////////////////////
+
+  void toggleFavoritesEventHandler(event, emit) {
+    toggleFavoritesUseCase(params: CAParams(article: event.article));
+  }
+
+  //////////////////////
+
+  void getFavoritesEventHandler(event, emit) {
+    final favorites = getFavoritesUseCase.syncCall(params: NoParams());
+
+    if (favorites.isEmpty) {
+      emit(Empty(activeTab: event.activeTabIndex, message: 'No Favorites'));
+    } else {
+      emit(Loaded(
+          articles: favorites,
+          activeTabIndex: event.activeTabIndex,
+          favorites: favorites));
+    }
   }
 }
