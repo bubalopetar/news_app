@@ -55,9 +55,13 @@ class _SourcesNavigationBarState extends State<SourcesNavigationBar> {
         context: context,
         position: RelativeRect.fromLTRB(width, bottomPosition, 0, 0),
         items: items);
-    if (selected == Options.favorites) {
-    } else {
-      return;
+    switch (selected) {
+      case Options.favorites:
+        BlocProvider.of<ArticlesBloc>(context)
+            .add(GetFavoritesEvent(activeTabIndex: optionsIndex));
+        break;
+      default:
+        break;
     }
   }
 
