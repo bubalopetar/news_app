@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/features/articles/presentation/pages/article_web_view.dart';
 import 'package:news_app/features/articles/presentation/widgets/widgets.dart';
+import 'core/themes/bloc/theme_bloc.dart';
 import 'injection_container.dart' as di;
 
 void main() async {
@@ -14,16 +16,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.light().copyWith(
-        primaryColor: Colors.black,
-        bottomAppBarColor: Colors.grey.shade500,
+    return BlocProvider(
+      create: (context) => ThemeBloc(),
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: _buildBasedOnTheme,
       ),
-      routes: {
-        WebViewPage.routeName: (context) => const WebViewPage(),
-      },
-      title: 'Flutter Demo',
-      home: const ArticlesBlocProvider(),
     );
   }
+
+  Widget _buildBasedOnTheme(BuildContext context, ThemeState state) =>
+      MaterialApp(
+        theme: state.theme,
+        routes: {
+          WebViewPage.routeName: (context) => const WebViewPage(),
+        },
+        home: const ArticlesBlocProvider(),
+      );
 }
