@@ -68,14 +68,17 @@ class Category extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return category != ''
-        ? Row(children: <Widget>[
-            buildDivider(context, 50, 20),
-            Text(
-              category,
-              style: const TextStyle(fontSize: 18),
-            ),
-            buildDivider(context, 20, 50),
-          ])
+        ? Container(
+            color: Theme.of(context).backgroundColor,
+            child: Row(children: <Widget>[
+              buildDivider(context, 50, 20),
+              Text(
+                category,
+                style: const TextStyle(fontSize: 18),
+              ),
+              buildDivider(context, 20, 50),
+            ]),
+          )
         : const SizedBox();
   }
 }
