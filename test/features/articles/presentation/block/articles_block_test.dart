@@ -6,9 +6,7 @@ import 'package:news_app/core/error/failures.dart';
 import 'package:news_app/core/utils/url_converter.dart';
 import 'package:news_app/features/articles/data/models/article_model.dart';
 
-import 'package:news_app/features/articles/domain/usecases/toggle_favorites.dart';
-import 'package:news_app/features/articles/domain/usecases/get_articles_from_url.dart';
-import 'package:news_app/features/articles/domain/usecases/get_favorites.dart';
+import 'package:news_app/features/articles/domain/usecases/usecases.dart';
 import 'package:news_app/features/articles/presentation/bloc/articles_bloc.dart';
 
 @GenerateNiceMocks([
@@ -204,16 +202,15 @@ void main() {
         "should call use case for fetching favorites",
         () async {
           bloc.add(const GetFavoritesEvent());
-          await untilCalled(getFavoritesUseCase.syncCall(params: NoParams()));
-          verify(getFavoritesUseCase.syncCall(params: NoParams()));
+          await untilCalled(getFavoritesUseCase(params: NoParams()));
+          verify(getFavoritesUseCase(params: NoParams()));
         },
       );
 
       test(
         "should emit Loaded state when favorites are read",
         () async {
-          when(getFavoritesUseCase.syncCall(params: NoParams()))
-              .thenReturn(articles);
+          when(getFavoritesUseCase(params: NoParams())).thenReturn(articles);
 
           expectLater(
               bloc.stream.asBroadcastStream(),
@@ -226,7 +223,7 @@ void main() {
       test(
         "should emit Empty state when favorites are read",
         () async {
-          when(getFavoritesUseCase.syncCall(params: NoParams())).thenReturn([]);
+          when(getFavoritesUseCase(params: NoParams())).thenReturn([]);
 
           expectLater(
               bloc.stream.asBroadcastStream(), emitsInOrder([const Empty()]));
