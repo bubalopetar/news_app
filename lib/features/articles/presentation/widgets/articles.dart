@@ -14,19 +14,24 @@ class Articles extends StatelessWidget {
   final List<Article> articles;
   final List<Article> favorites;
 
+  Divider buildDivider(BuildContext context) {
+    return Divider(
+      height: 0,
+      color: Theme.of(context).primaryColor,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Expanded(
           child: GroupedListView(
-            separator: Divider(
-              color: Theme.of(context).primaryColor,
-            ),
+            separator: buildDivider(context),
             useStickyGroupSeparators: true,
             order: GroupedListOrder.DESC,
-            elements: articles,
             groupSeparatorBuilder: (String category) => Category(category),
+            elements: articles,
             groupBy: (element) => element.category,
             itemBuilder: (context, Article article) {
               return ArticleWidget(
@@ -49,28 +54,27 @@ class Category extends StatelessWidget {
     super.key,
   });
 
+  Widget buildDivider(BuildContext context, double left, double right) {
+    return Expanded(
+      child: Container(
+          margin: EdgeInsets.only(left: left, right: right),
+          child: Divider(
+            color: Theme.of(context).primaryColor,
+            height: 36,
+          )),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return category != ''
         ? Row(children: <Widget>[
-            Expanded(
-              child: Divider(
-                color: Theme.of(context).primaryColor,
-                height: 36,
-              ),
-            ),
+            buildDivider(context, 50, 20),
             Text(
               category,
               style: const TextStyle(fontSize: 18),
             ),
-            Expanded(
-              child: Container(
-                  margin: const EdgeInsets.only(left: 20.0, right: 10.0),
-                  child: Divider(
-                    color: Theme.of(context).primaryColor,
-                    height: 36,
-                  )),
-            ),
+            buildDivider(context, 20, 50),
           ])
         : const SizedBox();
   }
