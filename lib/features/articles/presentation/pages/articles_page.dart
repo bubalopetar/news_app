@@ -14,7 +14,8 @@ class ArticlesPage extends StatelessWidget {
     switch (state.runtimeType) {
       case Empty:
         {
-          return const Center(child: CircularProgressIndicator());
+          state = state as Empty;
+          return Center(child: Text(state.message));
         }
       case Loading:
         {
