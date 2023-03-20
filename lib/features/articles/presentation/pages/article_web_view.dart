@@ -52,7 +52,6 @@ class ClosePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       elevation: 0,
-      backgroundColor: Colors.red.withOpacity(0.5),
       child: const Icon(Icons.close),
       onPressed: () => Navigator.of(context).pop(),
     );
