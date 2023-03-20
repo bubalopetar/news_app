@@ -54,7 +54,7 @@ class MockArticlesLocalDataSource extends _i1.Mock
   _i3.Future<bool> cacheOrRemoveArticle(_i4.ArticleModel? article) =>
       (super.noSuchMethod(
         Invocation.method(
-          #cacheArticle,
+          #cacheOrRemoveArticle,
           [article],
         ),
         returnValue: _i3.Future<bool>.value(false),
