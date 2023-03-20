@@ -5,7 +5,7 @@ import 'package:mockito/annotations.dart';
 import 'package:news_app/core/error/failures.dart';
 import 'package:news_app/core/utils/url_converter.dart';
 import 'package:news_app/features/articles/data/models/article_model.dart';
-import 'package:news_app/features/articles/domain/entities/article.dart';
+
 import 'package:news_app/features/articles/domain/usecases/toggle_favorites.dart';
 import 'package:news_app/features/articles/domain/usecases/get_articles_from_url.dart';
 import 'package:news_app/features/articles/domain/usecases/get_favorites.dart';
@@ -21,22 +21,25 @@ import 'articles_block_test.mocks.dart';
 
 void main() {
   late GetFavoritesUseCase getFavoritesUseCase;
-  late ToggleFavoritesUseCase addToFavoritesUseCase;
+  late ToggleFavoritesUseCase toggleFavoritesUseCase;
   late GetArticlesUseCase getArticlesUseCase;
   late ArticlesBloc bloc;
   late UrlConverter converter;
-
+  const articles = [
+    ArticleModel(title: 'test title', link: 'article link'),
+    ArticleModel(title: 'test title2', link: 'article link2')
+  ];
   setUp(
     () {
       getFavoritesUseCase = MockGetFavoritesUseCase();
       getArticlesUseCase = MockGetArticlesUseCase();
-      addToFavoritesUseCase = MockAddToFavoritesUseCase();
+      toggleFavoritesUseCase = MockToggleFavoritesUseCase();
       converter = MockUrlConverter();
       getArticlesUseCase = MockGetArticlesUseCase();
       bloc = ArticlesBloc(
           getFavoritesUseCase: getFavoritesUseCase,
           getArticlesUseCase: getArticlesUseCase,
-          addToFavoritesUseCase: addToFavoritesUseCase,
+          toggleFavoritesUseCase: toggleFavoritesUseCase,
           urlConverter: converter);
     },
   );
@@ -50,22 +53,18 @@ void main() {
     () {
       const String url = 'https://www.index.hr/rss';
       final uri = Uri.parse(url);
-      const articles = [
-        Article(title: 'test title', link: 'article link'),
-        Article(title: 'test title2', link: 'article link2')
-      ];
 
       setUp(
         () {
           getFavoritesUseCase = MockGetFavoritesUseCase();
           getArticlesUseCase = MockGetArticlesUseCase();
-          addToFavoritesUseCase = MockAddToFavoritesUseCase();
+          toggleFavoritesUseCase = MockToggleFavoritesUseCase();
           converter = MockUrlConverter();
           getArticlesUseCase = MockGetArticlesUseCase();
           bloc = ArticlesBloc(
               getFavoritesUseCase: getFavoritesUseCase,
               getArticlesUseCase: getArticlesUseCase,
-              addToFavoritesUseCase: addToFavoritesUseCase,
+              toggleFavoritesUseCase: toggleFavoritesUseCase,
               urlConverter: converter);
         },
       );
@@ -80,7 +79,7 @@ void main() {
       }
 
       void addGetArticlesFromUrlEvent(String url) {
-        bloc.add(GetArticlesFromUrlEvent(url: url, activeTabIndex: 0));
+        bloc.add(GetArticlesFromUrlEvent(url: url));
       }
 
       test(
@@ -118,9 +117,8 @@ void main() {
         expectLater(
             bloc.stream.asBroadcastStream(),
             emitsInOrder([
-              const Loading(activeTabIndex: 0),
-              const Loaded(
-                  articles: articles, activeTabIndex: 0, favorites: []),
+              const Loading(),
+              const Loaded(articles: articles, favorites: []),
             ]));
 
         addGetArticlesFromUrlEvent(url);
@@ -139,8 +137,8 @@ void main() {
         expectLater(
             bloc.stream.asBroadcastStream(),
             emitsInOrder([
-              const Loading(activeTabIndex: 0),
-              const Error(message: serverFailureMessage, activeTabIndex: 0),
+              const Loading(),
+              const Error(message: serverFailureMessage),
             ]));
 
         addGetArticlesFromUrlEvent(url);
@@ -153,40 +151,86 @@ void main() {
   );
 
   group(
-    "AddToFavoritesEvent",
+    "ToggleFavoritesEvent",
     () {
       setUp(
         () {
           getFavoritesUseCase = MockGetFavoritesUseCase();
           getArticlesUseCase = MockGetArticlesUseCase();
-          addToFavoritesUseCase = MockAddToFavoritesUseCase();
+          toggleFavoritesUseCase = MockToggleFavoritesUseCase();
           converter = MockUrlConverter();
           getArticlesUseCase = MockGetArticlesUseCase();
           bloc = ArticlesBloc(
               getFavoritesUseCase: getFavoritesUseCase,
               getArticlesUseCase: getArticlesUseCase,
-              addToFavoritesUseCase: addToFavoritesUseCase,
+              toggleFavoritesUseCase: toggleFavoritesUseCase,
               urlConverter: converter);
         },
       );
 
       test(
-        "should call repository and add new article to favorites",
+        "should call usecase and add/remove article to/from favorites",
         () async {
-          final article = ArticleModel(
-            title: "test title2",
-            link: "test link2",
-            description: "test desc2",
-            img: "test img2",
-            pubDate: DateTime.parse("2023-03-16T20:26:21.830257"),
-            category: "test category2",
-          );
-          bloc.add(TogleFavoritesEvent(article));
-          await untilCalled(
-              addToFavoritesUseCase.call(params: CAParams(article: article)));
+          bloc.add(TogleFavoritesEvent(articles[0]));
+          await untilCalled(toggleFavoritesUseCase.call(
+              params: CAParams(article: articles[0])));
 
-          verify(
-              addToFavoritesUseCase.call(params: CAParams(article: article)));
+          verify(toggleFavoritesUseCase.call(
+              params: CAParams(article: articles[0])));
+        },
+      );
+    },
+  );
+
+  group(
+    "GetFavoritesEvent",
+    () {
+      setUp(
+        () {
+          getFavoritesUseCase = MockGetFavoritesUseCase();
+          getArticlesUseCase = MockGetArticlesUseCase();
+          toggleFavoritesUseCase = MockToggleFavoritesUseCase();
+          converter = MockUrlConverter();
+          getArticlesUseCase = MockGetArticlesUseCase();
+          bloc = ArticlesBloc(
+              getFavoritesUseCase: getFavoritesUseCase,
+              getArticlesUseCase: getArticlesUseCase,
+              toggleFavoritesUseCase: toggleFavoritesUseCase,
+              urlConverter: converter);
+        },
+      );
+
+      test(
+        "should call use case for fetching favorites",
+        () async {
+          bloc.add(const GetFavoritesEvent());
+          await untilCalled(getFavoritesUseCase.syncCall(params: NoParams()));
+          verify(getFavoritesUseCase.syncCall(params: NoParams()));
+        },
+      );
+
+      test(
+        "should emit Loaded state when favorites are read",
+        () async {
+          when(getFavoritesUseCase.syncCall(params: NoParams()))
+              .thenReturn(articles);
+
+          expectLater(
+              bloc.stream.asBroadcastStream(),
+              emitsInOrder(
+                  [const Loaded(articles: articles, favorites: articles)]));
+          bloc.add(const GetFavoritesEvent());
+        },
+      );
+
+      test(
+        "should emit Empty state when favorites are read",
+        () async {
+          when(getFavoritesUseCase.syncCall(params: NoParams())).thenReturn([]);
+
+          expectLater(
+              bloc.stream.asBroadcastStream(), emitsInOrder([const Empty()]));
+          bloc.add(const GetFavoritesEvent());
         },
       );
     },
