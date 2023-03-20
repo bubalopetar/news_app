@@ -21,7 +21,7 @@ final serviceLocator = GetIt.instance;
 Future<void> init() async {
   // features
   serviceLocator.registerFactory(() => ArticlesBloc(
-      addToFavoritesUseCase: serviceLocator(),
+      toggleFavoritesUseCase: serviceLocator(),
       getArticlesUseCase: serviceLocator(),
       getFavoritesUseCase: serviceLocator(),
       urlConverter: serviceLocator()));
