@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:equatable/equatable.dart';
 import 'package:news_app/core/error/failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:news_app/core/usecases/usecase.dart';
@@ -23,4 +24,7 @@ class GetFavoritesUseCase implements UseCase<List<Article>?, NoParams> {
   }
 }
 
-class NoParams {}
+class NoParams extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
