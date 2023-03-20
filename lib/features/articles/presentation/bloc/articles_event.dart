@@ -10,10 +10,10 @@ abstract class ArticlesEvent extends Equatable {
 
 class GetArticlesFromUrlEvent extends ArticlesEvent {
   final String url;
-  final int activeTabIndex;
+  final int? activeTabIndex;
   GetArticlesFromUrlEvent({
     required this.url,
-    required this.activeTabIndex,
+    this.activeTabIndex,
   }) : super([url]);
 }
 
@@ -21,4 +21,10 @@ class TogleFavoritesEvent extends ArticlesEvent {
   final Article article;
 
   const TogleFavoritesEvent(this.article);
+}
+
+class GetFavoritesEvent extends ArticlesEvent {
+  final int? activeTabIndex;
+
+  const GetFavoritesEvent({this.activeTabIndex});
 }
