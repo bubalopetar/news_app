@@ -6,14 +6,15 @@ import 'package:news_app/core/usecases/usecase.dart';
 import 'package:news_app/features/articles/domain/entities/article.dart';
 import 'package:news_app/features/articles/domain/repositories/articles_repository.dart';
 
-class GetArticlesUseCase implements UseCase<List<Article>, Params> {
+class GetArticlesUseCase
+    implements UseCase<Future<Either<Failure, List<Article>>>, Params> {
   final ArticlesRepository repository;
   GetArticlesUseCase({
     required this.repository,
   });
 
   @override
-  Future<Either<Failure, List<Article>>> call({required Params params}) async {
+  call({required Params params}) async {
     return await repository.getArticlesFrom(url: params.url);
   }
 }
