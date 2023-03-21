@@ -23,26 +23,23 @@ class Articles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: GroupedListView(
-            separator: buildDivider(context),
-            useStickyGroupSeparators: true,
-            order: GroupedListOrder.DESC,
-            groupSeparatorBuilder: (String category) => Category(category),
-            elements: articles,
-            groupBy: (element) => element.category,
-            itemBuilder: (context, Article article) {
-              return ArticleWidget(
-                key: ValueKey(article.link),
-                article: article,
-                favorites: favorites,
-              );
-            },
-          ),
-        ),
-      ],
+    return SafeArea(
+      bottom: false,
+      child: GroupedListView(
+        separator: buildDivider(context),
+        useStickyGroupSeparators: true,
+        order: GroupedListOrder.DESC,
+        groupSeparatorBuilder: (String category) => Category(category),
+        elements: articles,
+        groupBy: (element) => element.category,
+        itemBuilder: (context, Article article) {
+          return ArticleWidget(
+            key: ValueKey(article.link),
+            article: article,
+            favorites: favorites,
+          );
+        },
+      ),
     );
   }
 }
