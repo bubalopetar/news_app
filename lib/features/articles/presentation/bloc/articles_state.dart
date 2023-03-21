@@ -2,6 +2,7 @@
 part of 'articles_bloc.dart';
 
 const int initialActiveTabIndex = 0;
+const String initialUrl = 'https://www.index.hr/rss';
 
 abstract class ArticlesState extends Equatable {
   final int? activeTabIndex;
