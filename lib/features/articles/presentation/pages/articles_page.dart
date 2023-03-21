@@ -38,10 +38,13 @@ class ArticlesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar:
-          SourcesNavigationBar(activeTabIndex: state.activeTabIndex!),
-      body: SafeArea(child: getBodyForState(state)),
+    return SafeArea(
+      bottom: false,
+      child: Scaffold(
+        bottomNavigationBar:
+            SourcesNavigationBar(activeTabIndex: state.activeTabIndex!),
+        body: getBodyForState(state),
+      ),
     );
   }
 }
