@@ -5,7 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:news_app/features/articles/data/datasources/articles_local_data_source.dart';
 import 'package:news_app/features/articles/data/models/article_model.dart';
 import 'package:news_app/features/articles/domain/entities/article.dart';
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:shared_preferences/shared_preferences.dart';
 
 @GenerateNiceMocks([MockSpec<SharedPreferences>()])
