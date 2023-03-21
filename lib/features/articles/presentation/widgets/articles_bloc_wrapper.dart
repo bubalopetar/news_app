@@ -9,8 +9,6 @@ import '../pages/articles_page.dart';
 class ArticlesBlocProvider extends StatelessWidget {
   const ArticlesBlocProvider({super.key});
 
-  final String initialUrl = 'https://www.index.hr/rss';
-
   ArticlesBloc _getArticleBloc() {
     return serviceLocator<ArticlesBloc>()
       ..add(GetArticlesFromUrlEvent(
