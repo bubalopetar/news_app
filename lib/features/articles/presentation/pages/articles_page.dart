@@ -10,6 +10,15 @@ class ArticlesPage extends StatelessWidget {
     required this.state,
   }) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar:
+          SourcesNavigationBar(activeTabIndex: state.activeTabIndex!),
+      body: getBodyForState(state),
+    );
+  }
+
   Widget getBodyForState(ArticlesState state) {
     switch (state.runtimeType) {
       case Empty:
@@ -34,14 +43,5 @@ class ArticlesPage extends StatelessWidget {
           return const Center(child: Text('error'));
         }
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar:
-          SourcesNavigationBar(activeTabIndex: state.activeTabIndex!),
-      body: getBodyForState(state),
-    );
   }
 }

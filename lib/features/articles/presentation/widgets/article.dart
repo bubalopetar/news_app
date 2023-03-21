@@ -18,6 +18,19 @@ class ArticleWidget extends StatelessWidget {
   final List<Article> favorites;
   final Article article;
 
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => openArticle(context),
+      child: _buildListTile(),
+    );
+  }
+
+  void openArticle(BuildContext context) {
+    Navigator.of(context)
+        .pushNamed(WebViewPage.routeName, arguments: article.link);
+  }
+
   AspectRatio? _getLeadingImgOrNull() {
     return article.img == ''
         ? null
@@ -34,28 +47,20 @@ class ArticleWidget extends StatelessWidget {
           );
   }
 
-  void openArticle(BuildContext context) {
-    Navigator.of(context)
-        .pushNamed(WebViewPage.routeName, arguments: article.link);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-        onTap: () => openArticle(context),
-        child: ListTile(
-          visualDensity: const VisualDensity(vertical: 4),
-          contentPadding: const EdgeInsets.all(0),
-          title: Text(
-            article.title,
-            maxLines: 3,
-          ),
-          leading: _getLeadingImgOrNull(),
-          trailing: FavoriteButton(
-            article: article,
-            favorites: favorites,
-          ),
-        ));
+  ListTile _buildListTile() {
+    return ListTile(
+      visualDensity: const VisualDensity(vertical: 4),
+      contentPadding: const EdgeInsets.all(0),
+      title: Text(
+        article.title,
+        maxLines: 3,
+      ),
+      leading: _getLeadingImgOrNull(),
+      trailing: FavoriteButton(
+        article: article,
+        favorites: favorites,
+      ),
+    );
   }
 }
 
@@ -81,29 +86,26 @@ class _FavoriteButtonState extends State<FavoriteButton> {
     super.initState();
   }
 
-  Icon getFavoriteIcon() {
-    if (isFavorite) {
-      return const Icon(
-        Icons.star,
-      );
-    } else {
-      return const Icon(Icons.star_border);
-    }
-  }
-
-  void toggleFavorites(Article article, BuildContext context) {
-    setState(() {
-      isFavorite = !isFavorite;
-    });
-
-    BlocProvider.of<ArticlesBloc>(context).add(TogleFavoritesEvent(article));
-  }
-
   @override
   Widget build(BuildContext context) {
     return IconButton(
         splashColor: Colors.transparent,
-        onPressed: () => toggleFavorites(widget.article, context),
-        icon: getFavoriteIcon());
+        onPressed: () => _toggleFavorites(widget.article, context),
+        icon: _getFavoriteIcon());
+  }
+
+  Icon _getFavoriteIcon() {
+    return isFavorite
+        ? const Icon(
+            Icons.star,
+          )
+        : const Icon(Icons.star_border);
+  }
+
+  void _toggleFavorites(Article article, BuildContext context) {
+    setState(() {
+      isFavorite = !isFavorite;
+    });
+    BlocProvider.of<ArticlesBloc>(context).add(TogleFavoritesEvent(article));
   }
 }

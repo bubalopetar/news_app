@@ -14,13 +14,6 @@ class Articles extends StatelessWidget {
   final List<Article> articles;
   final List<Article> favorites;
 
-  Divider buildDivider(BuildContext context) {
-    return Divider(
-      height: 0,
-      color: Theme.of(context).primaryColor,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -42,6 +35,13 @@ class Articles extends StatelessWidget {
       ),
     );
   }
+
+  Divider buildDivider(BuildContext context) {
+    return Divider(
+      height: 0,
+      color: Theme.of(context).primaryColor,
+    );
+  }
 }
 
 class Category extends StatelessWidget {
@@ -50,17 +50,6 @@ class Category extends StatelessWidget {
     this.category, {
     super.key,
   });
-
-  Widget buildDivider(BuildContext context, double left, double right) {
-    return Expanded(
-      child: Container(
-          margin: EdgeInsets.only(left: left, right: right),
-          child: Divider(
-            color: Theme.of(context).primaryColor,
-            height: 36,
-          )),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,5 +66,16 @@ class Category extends StatelessWidget {
             ]),
           )
         : const SizedBox();
+  }
+
+  Widget buildDivider(BuildContext context, double left, double right) {
+    return Expanded(
+      child: Container(
+          margin: EdgeInsets.only(left: left, right: right),
+          child: Divider(
+            color: Theme.of(context).primaryColor,
+            height: 36,
+          )),
+    );
   }
 }
