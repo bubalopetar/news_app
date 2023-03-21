@@ -34,11 +34,10 @@ class _WebViewPageState extends State<WebViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      bottom: false,
-      child: Scaffold(
-        floatingActionButton: const ClosePage(),
-        body: WebViewWidget(
+    return Scaffold(
+      floatingActionButton: const ClosePage(),
+      body: SafeArea(
+        child: WebViewWidget(
           controller: controller,
         ),
       ),
