@@ -6,19 +6,13 @@ import 'package:news_app/sources.dart';
 
 import '../bloc/articles_bloc.dart';
 
-class SourcesNavigationBar extends StatefulWidget {
-  final int activeTabIndex;
-
+class SourcesNavigationBar extends StatelessWidget {
   const SourcesNavigationBar({super.key, required this.activeTabIndex});
 
-  @override
-  State<SourcesNavigationBar> createState() => _SourcesNavigationBarState();
-}
-
-class _SourcesNavigationBarState extends State<SourcesNavigationBar> {
   final int optionsIndex = 6;
+  final int activeTabIndex;
 
-  BottomNavigationBarItem _getOptionsItem() {
+  BottomNavigationBarItem _getOptionsItem(context) {
     return BottomNavigationBarItem(
         icon: Icon(
           Icons.more_vert,
@@ -27,7 +21,7 @@ class _SourcesNavigationBarState extends State<SourcesNavigationBar> {
         label: '');
   }
 
-  List<BottomNavigationBarItem> _buildBottomNavigationItems() {
+  List<BottomNavigationBarItem> _buildBottomNavigationItems(context) {
     List<BottomNavigationBarItem> items = sources
         .map<BottomNavigationBarItem>((source) => BottomNavigationBarItem(
               backgroundColor: Theme.of(context).bottomAppBarColor,
@@ -39,7 +33,7 @@ class _SourcesNavigationBarState extends State<SourcesNavigationBar> {
               ),
             ))
         .toList();
-    items.add(_getOptionsItem());
+    items.add(_getOptionsItem(context));
     return items;
   }
 
@@ -108,9 +102,9 @@ class _SourcesNavigationBarState extends State<SourcesNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      currentIndex: widget.activeTabIndex,
+      currentIndex: activeTabIndex,
       onTap: (index) => _onSelectedNavigationItem(index, context),
-      items: _buildBottomNavigationItems(),
+      items: _buildBottomNavigationItems(context),
     );
   }
 }
