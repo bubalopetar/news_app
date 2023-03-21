@@ -18,7 +18,7 @@ class SourcesNavigationBar extends StatefulWidget {
 class _SourcesNavigationBarState extends State<SourcesNavigationBar> {
   final int optionsIndex = 6;
 
-  BottomNavigationBarItem getOptionsItem() {
+  BottomNavigationBarItem _getOptionsItem() {
     return BottomNavigationBarItem(
         icon: Icon(
           Icons.more_vert,
@@ -27,7 +27,7 @@ class _SourcesNavigationBarState extends State<SourcesNavigationBar> {
         label: '');
   }
 
-  List<BottomNavigationBarItem> buildBottomNavigationItems() {
+  List<BottomNavigationBarItem> _buildBottomNavigationItems() {
     List<BottomNavigationBarItem> items = sources
         .map<BottomNavigationBarItem>((source) => BottomNavigationBarItem(
               backgroundColor: Theme.of(context).bottomAppBarColor,
@@ -39,49 +39,65 @@ class _SourcesNavigationBarState extends State<SourcesNavigationBar> {
               ),
             ))
         .toList();
-    items.add(getOptionsItem());
+    items.add(_getOptionsItem());
     return items;
   }
 
-  showOptionsMenu(context) async {
-    final items = [
-      const PopupMenuItem(
-        value: Options.favorites,
-        child: Text("Favorites"),
-      ),
-      PopupMenuItem(
-        child: const Text('Change theme'),
-        onTap: () {
-          final provider = BlocProvider.of<ThemeBloc>(context);
-          final theme = Theme.of(context).brightness == Brightness.dark
-              ? AppTheme.light
-              : AppTheme.dark;
+  double _calculateHeightToShowOptionsMenu(mq, items, context) {
+    int menuItemHeight = 50;
+    int bottomNavBarHeight = 70;
+    final fromBottomHeight = mq.padding.bottom + bottomNavBarHeight;
+    final showMenuAtHight =
+        mq.size.height - fromBottomHeight - (items.length * menuItemHeight);
+    return showMenuAtHight;
+  }
 
-          provider.add(ChangeThemeEvent(theme));
-        },
-      )
-    ];
-    final size = MediaQuery.of(context).size;
-    final width = size.width;
-    final height = size.height;
-    final bottomPosition = height - 65 - (items.length * 50);
+  _showOptionsMenu(context) async {
+    final items = _getOptionsMenuItems(context);
+    final mq = MediaQuery.of(context);
+    final size = mq.size;
+
     final selected = await showMenu(
         context: context,
-        position: RelativeRect.fromLTRB(width, bottomPosition, 0, 0),
+        position: RelativeRect.fromLTRB(size.width,
+            _calculateHeightToShowOptionsMenu(mq, items, context), 0, 0),
         items: items);
+
     switch (selected) {
       case Options.favorites:
         BlocProvider.of<ArticlesBloc>(context)
             .add(GetFavoritesEvent(activeTabIndex: optionsIndex));
+        break;
+      case Options.changeTheme:
+        {
+          final theme = Theme.of(context).brightness == Brightness.dark
+              ? AppTheme.light
+              : AppTheme.dark;
+          BlocProvider.of<ThemeBloc>(context).add(ChangeThemeEvent(theme));
+        }
         break;
       default:
         break;
     }
   }
 
-  void _onSelectedNavigationItem(int index, BuildContext context) {
+  List<PopupMenuItem<dynamic>> _getOptionsMenuItems(context) {
+    return [
+      const PopupMenuItem(
+        value: Options.favorites,
+        child: Text("Favorites"),
+      ),
+      const PopupMenuItem(
+          value: Options.changeTheme, child: Text('Change theme'))
+    ];
+  }
+
+  void _onSelectedNavigationItem(
+    int index,
+    BuildContext context,
+  ) {
     if (index == optionsIndex) {
-      showOptionsMenu(context);
+      _showOptionsMenu(context);
       return;
     }
     var url = sources[index].url;
@@ -94,9 +110,9 @@ class _SourcesNavigationBarState extends State<SourcesNavigationBar> {
     return BottomNavigationBar(
       currentIndex: widget.activeTabIndex,
       onTap: (index) => _onSelectedNavigationItem(index, context),
-      items: buildBottomNavigationItems(),
+      items: _buildBottomNavigationItems(),
     );
   }
 }
 
-enum Options { favorites }
+enum Options { favorites, changeTheme }
