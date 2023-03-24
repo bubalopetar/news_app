@@ -49,22 +49,9 @@ class ArticlesXMLParserImpl implements ArticlesXMLParser {
   }
 
   String? _tryToGetImageLink(XmlElement article) {
-    String? img = _tryToGetLinkFromText(article.getElement('content')?.text);
-    if (img != null) return img;
+    String? img;
+    String content = article.toString();
 
-    img = article.getElement('media:thumbnail')?.getAttribute('url');
-    if (img != null) return img;
-
-    String? descr = article.getElement('description')?.text;
-    if (descr != null) {
-      img = _tryToGetLinkFromText(descr);
-      if (img != null) return img;
-    }
-
-    img = article.getElement('enclosure')?.getAttribute('url');
-    if (img != null) return img;
-
-    String content = article.text;
     img = _tryToGetLinkFromText(content, findImageLink: true);
     if (img != null) return img;
 
@@ -84,7 +71,9 @@ class ArticlesXMLParserImpl implements ArticlesXMLParser {
         if (matches.isNotEmpty) {
           for (RegExpMatch match in matches) {
             var link = match.input.substring(match.start, match.end);
-            if (link.endsWith('.jpg') || link.endsWith('.png')) {
+            if (link.endsWith('.jpg') ||
+                link.endsWith('.png') ||
+                link.endsWith('original')) {
               return link;
             }
           }
