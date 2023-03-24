@@ -3,7 +3,7 @@ import 'dart:core';
 
 List<Map<String, dynamic>> sourcesList = [
   {
-    'name': 'Index.hr',
+    'name': 'Index',
     'url': 'https://www.index.hr/rss',
     'categories': [
       {
@@ -141,7 +141,7 @@ List<Map<String, dynamic>> sourcesList = [
     ]
   },
   {
-    'name': 'Net.hr',
+    'name': 'Net',
     'url': 'https://net.hr/feed',
     'categories': [
       {
@@ -171,7 +171,7 @@ List<Map<String, dynamic>> sourcesList = [
     ]
   },
   {
-    'name': '24sata.hr',
+    'name': '24sata',
     'url': 'https://www.24sata.hr/feeds/aktualno.xml',
     'categories': [
       {
@@ -204,19 +204,20 @@ List<Map<String, dynamic>> sourcesList = [
       },
     ]
   },
+  {'name': 'Jutarnji', 'url': 'https://www.jutarnji.hr/feed', 'categories': []},
   {
-    'name': 'Jutarnji.hr',
-    'url': 'https://www.jutarnji.hr/feed',
-    'categories': []
-  },
-  {
-    'name': 'Bug.hr',
+    'name': 'Bug',
     'url': 'https://www.bug.hr/rss',
     'categories': [],
   },
   {
-    'name': 'Slobodna Dalmacija.hr',
+    'name': 'Slobodna Dalmacija',
     'url': 'https://slobodnadalmacija.hr/feed',
+    'categories': [],
+  },
+  {
+    'name': 'Radio Imotski',
+    'url': 'https://radioimotski.hr/feed',
     'categories': [],
   }
 ];
