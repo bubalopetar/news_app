@@ -7,9 +7,9 @@ import 'package:news_app/sources.dart';
 import '../bloc/articles_bloc.dart';
 
 class SourcesNavigationBar extends StatelessWidget {
-  const SourcesNavigationBar({super.key, required this.activeTabIndex});
+  SourcesNavigationBar({super.key, required this.activeTabIndex});
 
-  final int optionsIndex = 6;
+  final int optionsIndex = sources.length + 1;
   final int activeTabIndex;
 
   BottomNavigationBarItem _getOptionsItem(context) {
