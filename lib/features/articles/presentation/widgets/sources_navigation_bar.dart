@@ -9,7 +9,7 @@ import '../bloc/articles_bloc.dart';
 class SourcesNavigationBar extends StatelessWidget {
   SourcesNavigationBar({super.key, required this.activeTabIndex});
 
-  final int optionsIndex = sources.length + 1;
+  final int optionsIndex = sources.length;
   final int activeTabIndex;
 
   BottomNavigationBarItem _getOptionsItem(context) {
@@ -90,7 +90,7 @@ class SourcesNavigationBar extends StatelessWidget {
     int index,
     BuildContext context,
   ) {
-    if (index == optionsIndex - 1) {
+    if (index == optionsIndex) {
       _showOptionsMenu(context);
       return;
     }
