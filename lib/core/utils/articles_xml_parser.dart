@@ -64,19 +64,34 @@ class ArticlesXMLParserImpl implements ArticlesXMLParser {
     img = article.getElement('enclosure')?.getAttribute('url');
     if (img != null) return img;
 
+    String content = article.text;
+    img = _tryToGetLinkFromText(content, findImageLink: true);
+    if (img != null) return img;
+
     return null;
   }
 
-  String? _tryToGetLinkFromText(String? text) {
-    String? imgLink;
-
+  String? _tryToGetLinkFromText(String? text, {bool findImageLink = false}) {
     if (text != null) {
-      final match = urlMatchingRegex.firstMatch(text);
-      if (match != null) {
-        imgLink = text.substring(match.start, match.end);
+      if (!findImageLink) {
+        final match = urlMatchingRegex.firstMatch(text);
+        if (match != null) {
+          return text.substring(match.start, match.end);
+        }
+      } else {
+        final matches = urlMatchingRegex.allMatches(text);
+
+        if (matches.isNotEmpty) {
+          for (RegExpMatch match in matches) {
+            var link = match.input.substring(match.start, match.end);
+            if (link.endsWith('.jpg') || link.endsWith('.png')) {
+              return link;
+            }
+          }
+        }
       }
     }
-    return imgLink;
+    return null;
   }
 
   DateTime? _tryToGetPubDate(String? dateString) {
