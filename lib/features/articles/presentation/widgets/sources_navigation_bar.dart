@@ -90,7 +90,7 @@ class SourcesNavigationBar extends StatelessWidget {
     int index,
     BuildContext context,
   ) {
-    if (index == optionsIndex) {
+    if (index == optionsIndex - 1) {
       _showOptionsMenu(context);
       return;
     }
