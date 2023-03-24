@@ -216,7 +216,7 @@ List<Map<String, dynamic>> sourcesList = [
     'categories': [],
   },
   {
-    'name': 'Radio Imotski',
+    'name': 'RIM',
     'url': 'https://radioimotski.hr/feed',
     'categories': [],
   }
