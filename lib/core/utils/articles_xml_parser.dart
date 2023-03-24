@@ -19,14 +19,14 @@ class ArticlesXMLParserImpl implements ArticlesXMLParser {
 
     for (XmlElement articleXML in document.findAllElements('item')) {
       dynamic result = _getArticleModelOrFalse(articleXML);
-      if (result != false) {
+      if (result != null) {
         articles.add(result as ArticleModel);
       }
     }
     return articles;
   }
 
-  dynamic _getArticleModelOrFalse(XmlElement article) {
+  ArticleModel? _getArticleModelOrFalse(XmlElement article) {
     String? title = article.getElement('title')?.text;
     String? link = article.getElement('link')?.text;
     String? desc = article.getElement('description')?.text;
@@ -44,42 +44,27 @@ class ArticlesXMLParserImpl implements ArticlesXMLParser {
         img: img ?? '',
       );
     } else {
-      return false;
+      return null;
     }
   }
 
   String? _tryToGetImageLink(XmlElement article) {
     String? img;
-    String content = article.toString();
+    final matches = urlMatchingRegex.allMatches(article.toString());
 
-    img = _tryToGetLinkFromText(content, findImageLink: true);
-    if (img != null) return img;
-
-    return null;
-  }
-
-  String? _tryToGetLinkFromText(String? text, {bool findImageLink = false}) {
-    if (text != null) {
-      if (!findImageLink) {
-        final match = urlMatchingRegex.firstMatch(text);
-        if (match != null) {
-          return text.substring(match.start, match.end);
-        }
-      } else {
-        final matches = urlMatchingRegex.allMatches(text);
-
-        if (matches.isNotEmpty) {
-          for (RegExpMatch match in matches) {
-            var link = match.input.substring(match.start, match.end);
-            if (link.endsWith('.jpg') ||
-                link.endsWith('.png') ||
-                link.endsWith('original')) {
-              return link;
-            }
-          }
+    if (matches.isNotEmpty) {
+      for (RegExpMatch match in matches) {
+        var link = match.input.substring(match.start, match.end);
+        if (link.endsWith('.jpg') ||
+            link.endsWith('.png') ||
+            link.endsWith('.gif') ||
+            link.endsWith('original')) {
+          img = link;
         }
       }
     }
+    if (img != null) return img;
+
     return null;
   }
 
