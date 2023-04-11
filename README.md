@@ -1,16 +1,20 @@
-# news_app
 
-A new Flutter project.
+# News Reader App
 
-## Getting Started
+This App is used to read RSS news sources from Croatia most popular news web sites.
 
-This project is a starting point for a Flutter application.
+App is build completely in Test Driven Development manner and Clean Code Architecture style.
+Code structure is divided in 3 core parts: Domain, Data and Presentation.
+Bloc State Management is used to store state accros the app and since the code is modular it can be replaced with any other state management solution.
+Each module is covered with tests that follow the same architectural style.
 
-A few resources to get you started if this is your first Flutter project:
+## Features
+ - User has a list of popular websites in the bottom of navigation bar
+ - When user taps on each website icon in nav bar, he gets a list of latest news articles from its RSS source. 
+ - Articles are grouped within the categories it belongs to.
+ - User can open articles in WebView and save it in favorites for reading later.
+ - User can change app themeing.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<a href="url"><img src="readme_img\one.png" align="left" height="480" width="" ></a>
+<a href="url"><img src="readme_img\two.png" align="left" height="480" width="" ></a>
+<a href="url"><img src="readme_img\three.png" align="left" height="480" width="" ></a>
